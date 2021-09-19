@@ -7,11 +7,205 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:context=".RegisterActivity">
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="REGISTRO DE ENCARGADOS PRUEBA SPRINT"
-            android:textSize="22dp"
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+        >
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorAccent"
+            ></View>
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="REGISTRO DE USUARIOS"
+                      android:textColor="#ffffff"
+                      android:textAlignment="center"
+                      android:textStyle="bold"
+                      android:layout_marginTop="50dp"
+                      android:textSize="22dp"
             ></TextView>
+            <ImageView android:layout_width="150dp"
+                       android:layout_height="150dp"
+                       android:src="@drawable/ic_baseline_person_24"
+                       android:layout_gravity="center"
+                       android:layout_marginTop="40dp"
+            ></ImageView>
+
+        </FrameLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginLeft="30dp"
+                      android:layout_marginTop="30dp"
+                      android:layout_marginRight="30dp"
+        >
+            <ImageView android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:layout_marginTop="15dp"
+                       android:layout_marginRight="5dp"
+                       android:src="@drawable/cedula"
+            ></ImageView>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Cédula de Identidad"
+                        android:inputType="textEmailAddress"
+                ></com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginLeft="30dp"
+                      android:layout_marginRight="30dp"
+        >
+            <ImageView android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:layout_marginTop="15dp"
+                       android:layout_marginRight="5dp"
+                       android:src="@drawable/username"
+            ></ImageView>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nombres"
+                        android:inputType="text"
+                ></com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginLeft="30dp"
+                      android:layout_marginRight="30dp"
+        >
+            <ImageView android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:layout_marginTop="15dp"
+                       android:layout_marginRight="5dp"
+                       android:src="@drawable/username"
+            ></ImageView>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Apellidos"
+                        android:inputType="text"
+                ></com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginLeft="30dp"
+                      android:layout_marginRight="30dp"
+                      >
+            <ImageView android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:layout_marginTop="15dp"
+                       android:layout_marginRight="5dp"
+                       android:src="@drawable/emal"
+                       ></ImageView>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Correo electronico"
+                        android:inputType="textEmailAddress"
+                        ></com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginLeft="30dp"
+                      android:layout_marginRight="30dp"
+        >
+            <ImageView android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:layout_marginTop="15dp"
+                       android:layout_marginRight="5dp"
+                       android:src="@drawable/password"
+            ></ImageView>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Contraseña"
+                        android:inputType="textPassword"
+                ></com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginLeft="30dp"
+                      android:layout_marginRight="30dp"
+        >
+            <ImageView android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:layout_marginTop="15dp"
+                       android:layout_marginRight="5dp"
+                       android:src="@drawable/password"
+            ></ImageView>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Confirmar contraseña"
+                        android:inputType="textPassword"
+                ></com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"/>
+
+    </LinearLayout>
+
+    <Button android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REGISTRAR"
+            android:backgroundTint="#B903A9F4"
+            android:background="@drawable/rounded_button"
+            android:layout_gravity="bottom"
+            android:layout_margin="20dp"
+            ></Button>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
