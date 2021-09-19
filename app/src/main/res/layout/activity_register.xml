@@ -6,7 +6,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".RegisterActivity">
+        tools:context=".activity.RegisterActivity">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+                >
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="match_parent"
@@ -41,34 +50,11 @@
 
         </FrameLayout>
 
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginLeft="30dp"
-                      android:layout_marginTop="30dp"
-                      android:layout_marginRight="30dp"
-        >
-            <ImageView android:layout_width="30dp"
-                       android:layout_height="30dp"
-                       android:layout_marginTop="15dp"
-                       android:layout_marginRight="5dp"
-                       android:src="@drawable/cedula"
-            ></ImageView>
-            <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Cédula de Identidad"
-                        android:inputType="textEmailAddress"
-                ></com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:orientation="horizontal"
+                      android:layout_marginTop="30dp"
                       android:layout_marginLeft="30dp"
                       android:layout_marginRight="30dp"
         >
@@ -86,6 +72,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Nombres"
                         android:inputType="text"
+                        android:id="@+id/etName"
                 ></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -110,6 +97,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Apellidos"
                         android:inputType="text"
+                        android:id="@+id/etLastName"
                 ></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -134,6 +122,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Correo electronico"
                         android:inputType="textEmailAddress"
+                        android:id="@+id/etEmail"
                         ></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -158,6 +147,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Contraseña"
                         android:inputType="textPassword"
+                        android:id="@+id/etPassword"
                 ></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -182,30 +172,111 @@
                         android:layout_height="wrap_content"
                         android:hint="Confirmar contraseña"
                         android:inputType="textPassword"
+                        android:id="@+id/etConfirmPassword"
                 ></com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <Spinner
-                android:id="@+id/spinner1"
+        <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:text="Tipo de Usuario"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                  ></TextView>
+
+        <RadioGroup
+                android:id="@+id/radioType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <RadioButton
+                    android:id="@+id/radioAdmi"
+                    android:layout_width="match_parent"
+                    android:textSize="20dp"
+                    android:buttonTint="#4B4DC6"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:text="Administrador"/>
+
+            <RadioButton
+                    android:id="@+id/radioEnc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="15dp"
+                    android:textSize="20dp"
+                    android:buttonTint="#4B4DC6"
+                    android:paddingTop="15dp"
+                    android:text="Encargado"/>
+
+            <RadioButton
+                    android:id="@+id/radioCli"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="15dp"
+                    android:textSize="20dp"
+                    android:buttonTint="#4B4DC6"
+                    android:paddingTop="15dp"
+                    android:text="Cliente"/>
+
+        </RadioGroup>
+
+        <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Plan"
+                android:textStyle="bold"
+                android:textSize="20dp"
+        ></TextView>
+
+        <RadioGroup
+                android:id="@+id/radioPlan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown"/>
+                android:layout_marginBottom="50dp"
+        >
+
+            <RadioButton
+                    android:id="@+id/radioPremium"
+                    android:layout_width="match_parent"
+                    android:textSize="20dp"
+                    android:buttonTint="#4B4DC6"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:text="Premium"/>
+
+            <RadioButton
+                    android:id="@+id/radioGold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="15dp"
+                    android:textSize="20dp"
+                    android:buttonTint="#4B4DC6"
+                    android:paddingTop="15dp"
+                    android:text="Gold"/>
+
+        </RadioGroup>
 
     </LinearLayout>
 
     <Button android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/registerEmpButton"
             android:text="REGISTRAR"
             android:backgroundTint="#B903A9F4"
             android:background="@drawable/rounded_button"
             android:layout_gravity="bottom"
             android:layout_margin="20dp"
+            android:layout_alignParentBottom="true"
             ></Button>
+        </RelativeLayout>
+
+    </ScrollView>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
