@@ -11,12 +11,13 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Registrar Encargado"
-            android:id="@+id/registerEmpButton"
+            android:text="Registrar Usuario"
+            android:id="@+id/registerButton"
             android:background="#CB8BC34A"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
     ></Button>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

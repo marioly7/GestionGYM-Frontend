@@ -191,25 +191,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <RadioButton
-                    android:id="@+id/radioAdmi"
-                    android:layout_width="match_parent"
-                    android:textSize="20dp"
-                    android:buttonTint="#4B4DC6"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp"
-                    android:text="Administrador"/>
-
-            <RadioButton
-                    android:id="@+id/radioEnc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="15dp"
-                    android:textSize="20dp"
-                    android:buttonTint="#4B4DC6"
-                    android:paddingTop="15dp"
-                    android:text="Encargado"/>
 
             <RadioButton
                     android:id="@+id/radioCli"
@@ -217,6 +198,7 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="15dp"
                     android:textSize="20dp"
+                    android:checked="true"
                     android:buttonTint="#4B4DC6"
                     android:paddingTop="15dp"
                     android:text="Cliente"/>
@@ -258,16 +240,6 @@
                     android:buttonTint="#4B4DC6"
                     android:paddingTop="15dp"
                     android:text="Gold"/>
-
-            <RadioButton
-                    android:id="@+id/radioNone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="15dp"
-                    android:textSize="20dp"
-                    android:buttonTint="#4B4DC6"
-                    android:paddingTop="15dp"
-                    android:text="Ninguno"/>
 
         </RadioGroup>
 

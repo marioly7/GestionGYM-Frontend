@@ -9,16 +9,16 @@ import com.example.gymmanagement.R;
 
 public class MenuActivity extends AppCompatActivity {
 
-    Button registerEmpButton;
+    Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        registerEmpButton = findViewById(R.id.registerEmpButton);
+        registerButton = findViewById(R.id.registerButton);
 
-        registerEmpButton.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MenuActivity.this, RegisterActivity.class);

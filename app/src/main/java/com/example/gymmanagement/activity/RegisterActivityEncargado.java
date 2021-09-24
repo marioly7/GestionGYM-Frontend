@@ -1,15 +1,12 @@
 package com.example.gymmanagement.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import com.example.gymmanagement.R;
 import com.example.gymmanagement.api.UserApi;
 import com.example.gymmanagement.model.User;
@@ -25,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class RegisterActivity extends AppCompatActivity{
+public class RegisterActivityEncargado extends AppCompatActivity{
 
     EditText etName, etLastName, etEmail, etPassword, etConfirmPassword;
     ArrayList<UserResponse> users;
@@ -34,13 +31,13 @@ public class RegisterActivity extends AppCompatActivity{
     Integer flag=0;
     Integer userRegisteringId = 1; //Es el ID que nos va a traer desde que se inicia sesion
     //para saber cual es el tipo de usuario que esta registrando
-    RadioButton premium, gold, none;
-    RadioButton admi, enc, cli;
+    RadioButton premium, gold;
+    RadioButton cli;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_register_enc);
 
         etName = findViewById(R.id.etName);
         etLastName = findViewById(R.id.etLastName);
@@ -48,12 +45,9 @@ public class RegisterActivity extends AppCompatActivity{
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         registerButton = findViewById(R.id.registerEmpButton);
-        admi = findViewById(R.id.radioAdmi);
         cli = findViewById(R.id.radioCli);
-        enc = findViewById(R.id.radioEnc);
         premium = findViewById(R.id.radioPremium);
         gold = findViewById(R.id.radioGold);
-        none = findViewById(R.id.radioNone);
 
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -111,21 +105,18 @@ public class RegisterActivity extends AppCompatActivity{
                     Toast.makeText(getApplicationContext(), "El correo: "+etEmail.getText().toString()+" ya pertenece a una cuenta", Toast.LENGTH_SHORT).show();
                     return;
                 }else if (etName.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Debes ingresar tu nombre", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Debe ingresar un nombre", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (etLastName.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Debes ingresar tu apellido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Debe ingresar un apellido", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (etEmail.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Debes ingresar tu email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Debe ingresar un email", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (etPassword.getText().toString().isEmpty()){
-                    Toast.makeText(getApplicationContext(), "Debes ingresar una contraseña", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Debe ingresar una contraseña", Toast.LENGTH_SHORT).show();
                     return;
-                }else if (!admi.isChecked() && !cli.isChecked() && !enc.isChecked()) {
-                    Toast.makeText(getApplicationContext(), "Debe seleccionar un tipo de usuario", Toast.LENGTH_SHORT).show();
-                    return;
-                }else if (!premium.isChecked() && !gold.isChecked() && cli.isChecked()) {
+                }else if (!premium.isChecked() && !gold.isChecked()) {
                     Toast.makeText(getApplicationContext(), "Debe seleccionar un plan", Toast.LENGTH_SHORT).show();
                     return;
                 }else {
@@ -148,20 +139,11 @@ public class RegisterActivity extends AppCompatActivity{
 
         if(premium.isChecked()){
             planId =1;
-        }else if(gold.isChecked()){
+        }else{
             planId = 2;
-        }else{
-            planId = 3;
         }
 
-
-        if(admi.isChecked()){
-            userType = 3;
-        }else if(enc.isChecked()){
-            userType = 2;
-        }else{
-            userType = 1;
-        }
+        userType = 1;
 
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -195,17 +177,17 @@ public class RegisterActivity extends AppCompatActivity{
             public void onResponse(Call<User> call, Response<User> response) {
                 if (!response.isSuccessful()) {
                     Log.d("code","Code: " + response.code());
-                    Toast.makeText(RegisterActivity.this,"Respponse: "+response.code(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivityEncargado.this,"Respponse: "+response.code(),Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent (RegisterActivity.this, MainActivity.class);
+                Intent intent = new Intent (RegisterActivityEncargado.this, MainActivity.class);
                 startActivity(intent);
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("code failure","Code: " + t.getMessage());
-                Toast.makeText(RegisterActivity.this,"Failure: "+t.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivityEncargado.this,"Failure: "+t.getMessage(),Toast.LENGTH_SHORT).show();
                 return;
             }
         });

@@ -1,8 +1,11 @@
 package com.example.gymmanagement.activity;
 
 import android.content.Intent;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.gymmanagement.R;
@@ -10,11 +13,18 @@ import com.example.gymmanagement.R;
 public class MainActivity extends AppCompatActivity {
 
     Button loginButton;
+    TextView customerService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        customerService = findViewById(R.id.customerService);
+
+        SpannableString content = new SpannableString("COMUNÍCATE CON NOSOTROS");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        customerService.setText(content);
 
         loginButton = findViewById(R.id.loginbutton);
 
