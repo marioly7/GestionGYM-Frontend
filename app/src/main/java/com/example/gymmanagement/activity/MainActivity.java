@@ -5,6 +5,7 @@ import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +15,17 @@ public class MainActivity extends AppCompatActivity {
 
     Button loginButton;
     TextView customerService;
+    Integer passwordCounter=0;
+    private EditText etEmail;
+    private EditText etPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
 
         customerService = findViewById(R.id.customerService);
 
