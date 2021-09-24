@@ -29,15 +29,17 @@ public class RegisterActivityEncargado extends AppCompatActivity{
     Button registerButton;
     Integer userType, planId;
     Integer flag=0;
-    Integer userRegisteringId = 1; //Es el ID que nos va a traer desde que se inicia sesion
-    //para saber cual es el tipo de usuario que esta registrando
     RadioButton premium, gold;
     RadioButton cli;
+    Integer userId, userTypeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_enc);
+
+        userId = getIntent().getIntExtra("userId", 0);
+        userTypeId = getIntent().getIntExtra("userTypeId", 0);
 
         etName = findViewById(R.id.etName);
         etLastName = findViewById(R.id.etLastName);
@@ -166,7 +168,7 @@ public class RegisterActivityEncargado extends AppCompatActivity{
         user.setLastName(etLastName.getText().toString());
         user.setEmail(etEmail.getText().toString());
         user.setPassword(etPassword.getText().toString());
-        user.setRegistrantId(userRegisteringId);
+        user.setRegistrantId(userId);
         user.setPlanId(planId);
 
         Call<User> call = userApi.createUser(user);
