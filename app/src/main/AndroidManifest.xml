@@ -13,6 +13,10 @@
             android:theme="@style/AppTheme">
         <activity android:name=".activity.MenuActivity">
         </activity>
+        <activity android:name=".activity.CustomerService">
+        </activity>
+        <activity android:name=".activity.MenuActivityEncargado">
+        </activity>
         <activity android:name=".activity.RegisterActivity">
         </activity>
         <activity android:name=".activity.RegisterActivityEncargado">

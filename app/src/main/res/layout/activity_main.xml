@@ -107,8 +107,9 @@
                 android:layout_marginLeft="5dp"
                 android:text="COMUNÍCATE CON NOSOTROS"
                 android:textColor="#F46C36"
+                android:clickable="true"
                 android:id="@+id/customerService"
-        ></TextView>
+                tools:ignore="OnClick"></TextView>
 
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.example.gymmanagement.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.View;
@@ -20,13 +21,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button loginButton;
     TextView customerService;
-    Integer passwordCounter=0, userId, userTypeId;
+    Integer passwordCounter=1, userId, userTypeId;
     private EditText etEmail;
     private EditText etPassword;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
 
         customerService = findViewById(R.id.customerService);
+        customerService.setOnClickListener(this);
 
         SpannableString content = new SpannableString("COMUNÍCATE CON NOSOTROS");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -47,45 +50,62 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    if(etPassword.getText().toString().isEmpty()||etEmail.getText().toString().isEmpty()){
-                        Toast.makeText(getApplicationContext(), "Debe llenar todos los campos", Toast.LENGTH_SHORT).show();
-                        return;
-                    }else{
-                        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-                        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
-                        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+                if(passwordCounter<3){
+                if (etPassword.getText().toString().isEmpty() || etEmail.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Debe llenar todos los campos", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+                    loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+                    OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
-                        Retrofit retrofit=new Retrofit.Builder()
-                                .baseUrl("http://192.168.31.150:8085/user/")
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .client(httpClient)
-                                .build();
-                        final UserApi userApi= retrofit.create(UserApi.class);
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://192.168.31.150:8085/user/")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .client(httpClient)
+                            .build();
+                    final UserApi userApi = retrofit.create(UserApi.class);
 
-                        Call<Integer> call = userApi.getId(etEmail.getText().toString(),etPassword.getText().toString());
+                    Call<Integer> call = userApi.getId(etEmail.getText().toString(), etPassword.getText().toString());
 
-                        call.enqueue(new Callback<Integer>() {
-                            @Override
-                            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                                if (!response.isSuccessful()) {
-                                    etEmail.setText("Code userId: " + response.code());
-                                    return;
-                                }
-                                        userId = response.body();
-                                        userTypeForMenu(userId);
-                                }
+                    call.enqueue(new Callback<Integer>() {
+                                     @Override
+                                     public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                         if (!response.isSuccessful()) {
+                                             etEmail.setText("Code userId: " + response.code());
+                                             return;
+                                         }
+                                         userId = response.body();
+                                         userTypeForMenu(userId);
+                                     }
 
-                            @Override
-                            public void onFailure(Call<Integer> call, Throwable t) {
-                                //etEmail.setText("userId "+t.getMessage());
-                                etEmail.setText("");
-                                etPassword.setText("");
-                                Toast.makeText(MainActivity.this, "Email o password incorrectos", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
+                                     @Override
+                                     public void onFailure(Call<Integer> call, Throwable t) {
+                                         //etEmail.setText("userId "+t.getMessage());
+                                         etEmail.setText("");
+                                         etPassword.setText("");
+                                         passwordCounter++;
+                                         Toast.makeText(MainActivity.this, "Email o password incorrectos", Toast.LENGTH_SHORT).show();
+                                         return;
+                                     }
+                                 }
+                    );
+                }
+                }else{
+                    Toast.makeText(MainActivity.this, "Ha llegado al máximo de intentos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Comuníquese con atención al cliente", Toast.LENGTH_SHORT).show();
+                    etEmail.setEnabled(false);
+                    etPassword.setEnabled(false);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            // acciones que se ejecutan tras los milisegundos
+                            etEmail.setEnabled(true);
+                            etPassword.setEnabled(true);
+                            passwordCounter=1;
                         }
-                        );
-                    }
+                    }, 10000);
+                }
             }
         });
     }
@@ -113,9 +133,17 @@ public class MainActivity extends AppCompatActivity {
                              }
                              userTypeId = response.body();
 
-                             Toast.makeText(MainActivity.this,"userTypeId: "+userTypeId, Toast.LENGTH_SHORT).show();
+                             //Toast.makeText(MainActivity.this,"userTypeId: "+userTypeId, Toast.LENGTH_SHORT).show();
 
-                             Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                             switch (userTypeId){
+                                 case 2:
+                                     intent = new Intent(MainActivity.this, MenuActivity.class);
+                                     break;
+                                 case 3:
+                                     intent = new Intent(MainActivity.this, MenuActivityEncargado.class);
+                                     break;
+                             }
+
                              intent.putExtra("userId",userId);
                              intent.putExtra("userTypeId", userTypeId);
                              startActivity(intent);
@@ -131,5 +159,9 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-
+    @Override
+    public void onClick(View view) {
+        Intent intent1 = new Intent(MainActivity.this, CustomerService.class);
+        startActivity(intent1);
+    }
 }
