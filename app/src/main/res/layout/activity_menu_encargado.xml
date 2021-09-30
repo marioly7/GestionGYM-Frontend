@@ -45,21 +45,20 @@
             ></Button>
 
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/registerButton"
-            android:text="Registrar Pago"
-            android:layout_marginTop="40dp"
-            android:id="@+id/registerPaymentButton"
-            android:padding="10dp"
-            android:textColor="#192777"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:background="#FFC107"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-    ></Button>
+        android:id="@+id/registerPaymentButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/registerButton"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:background="#FFC107"
+        android:padding="10dp"
+        android:text="Registrar Pago"
+        android:textColor="#192777"
+        android:textStyle="bold"></Button>
 
 
 

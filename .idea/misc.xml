@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/gym-android/GestionGYM-Frontend/app/src/main/res/layout/activity_customer_service.xml" value="0.20885416666666667" />
+        <entry key="..\:/gym-android/GestionGYM-Frontend/app/src/main/res/layout/activity_main.xml" value="0.18085106382978725" />
+        <entry key="..\:/gym-android/GestionGYM-Frontend/app/src/main/res/layout/activity_menu.xml" value="0.20885416666666667" />
+        <entry key="..\:/gym-android/GestionGYM-Frontend/app/src/main/res/layout/activity_menu_encargado.xml" value="0.20885416666666667" />
+        <entry key="..\:/gym-android/GestionGYM-Frontend/app/src/main/res/layout/activity_register.xml" value="0.20885416666666667" />
+        <entry key="..\:/gym-android/GestionGYM-Frontend/app/src/main/res/layout/activity_register_enc.xml" value="0.20885416666666667" />
+      </map>
+    </option>
+  </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
