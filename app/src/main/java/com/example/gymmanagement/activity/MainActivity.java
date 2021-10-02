@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.gymmanagement.R;
 import com.example.gymmanagement.api.UserApi;
+import com.example.gymmanagement.request.Request;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText etEmail;
     private EditText etPassword;
     Intent intent;
+    Request request = new Request();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(getApplicationContext(), "Debe llenar todos los campos", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-                    loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
-                    OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://192.168.31.150:8085/user/")
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .client(httpClient)
-                            .build();
-                    final UserApi userApi = retrofit.create(UserApi.class);
-
-                    Call<Integer> call = userApi.getId(etEmail.getText().toString(), etPassword.getText().toString());
-
-                    call.enqueue(new Callback<Integer>() {
+                    request.getId(etEmail.getText().toString(), etPassword.getText().toString()).enqueue(new Callback<Integer>() {
                                      @Override
                                      public void onResponse(Call<Integer> call, Response<Integer> response) {
                                          if (!response.isSuccessful()) {
@@ -111,20 +101,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void userTypeForMenu(final Integer userId) {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
-        Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("http://192.168.31.150:8085/user/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
-                .build();
-        final UserApi userApi= retrofit.create(UserApi.class);
 
-        Call<Integer> call = userApi.getUserType(userId);
-
-        call.enqueue(new Callback<Integer>() {
+        request.getUserType(userId).enqueue(new Callback<Integer>() {
                          @Override
                          public void onResponse(Call<Integer> call, Response<Integer> response) {
                              if (!response.isSuccessful()) {

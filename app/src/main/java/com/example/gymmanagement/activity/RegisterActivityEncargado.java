@@ -11,6 +11,7 @@ import com.example.gymmanagement.R;
 import com.example.gymmanagement.api.UserApi;
 import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
+import com.example.gymmanagement.request.Request;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -32,6 +33,7 @@ public class RegisterActivityEncargado extends AppCompatActivity{
     RadioButton premium, gold;
     RadioButton cli;
     Integer userId, userTypeId;
+    Request request =new Request();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +54,7 @@ public class RegisterActivityEncargado extends AppCompatActivity{
         gold = findViewById(R.id.radioGold);
 
 
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
-
-        Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("http://192.168.31.150:8085/user/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
-                .build();
-
-
-        UserApi userApi = retrofit.create(UserApi.class);
-        Call<ArrayList<UserResponse>> call = userApi.getAllUsers();
-
-        call.enqueue(new Callback<ArrayList<UserResponse>>() {
+        request.getAllUsers().enqueue(new Callback<ArrayList<UserResponse>>() {
             @Override
             public void onResponse(Call<ArrayList<UserResponse>> call, Response<ArrayList<UserResponse>> response) {
                 if (!response.isSuccessful()) {
@@ -148,33 +136,8 @@ public class RegisterActivityEncargado extends AppCompatActivity{
         userType = 1;
 
 
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
-        Retrofit retrofit=new Retrofit.Builder()
-                //.baseUrl("https://jsonplaceholder.typicode.com/")
-                .baseUrl("http://192.168.31.150:8085/user/")
-                //.baseUrl("http://192.168.31.148:8081/v1/user/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
-                .build();
-        UserApi userApi= retrofit.create(UserApi.class);
-
-
-        User user = new User();
-        user.setUserTypeId(userType);
-        user.setUserName(etName.getText().toString());
-        user.setLastName(etLastName.getText().toString());
-        user.setEmail(etEmail.getText().toString());
-        user.setPassword(etPassword.getText().toString());
-        user.setRegistrantId(userId);
-        user.setPlanId(planId);
-
-        Call<User> call = userApi.createUser(user);
-
-
-        call.enqueue(new Callback<User>() {
+        request.createUser(userType,etName.getText().toString(),etLastName.getText().toString(),etEmail.getText().toString(),etPassword.getText().toString(),userId,planId).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (!response.isSuccessful()) {
