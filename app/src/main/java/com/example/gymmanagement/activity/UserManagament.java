@@ -22,12 +22,19 @@ import java.util.List;
 
 public class UserManagament extends AppCompatActivity {
 
-    List<UserResponse> userList;
+    List<UserResponse>  userList = new ArrayList<>();
+    ListAdapter listAdapter;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_managament);
+
+        recyclerView = findViewById(R.id.rvUsers);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(UserManagament.this));
+        recyclerView.setAdapter(listAdapter);
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
@@ -48,10 +55,19 @@ public class UserManagament extends AppCompatActivity {
             public void onResponse(Call<ArrayList<UserResponse>> call, Response<ArrayList<UserResponse>> response) {
                 if (!response.isSuccessful()) {
                     //textViewResult.setText("Code: " + response.code());
+                    UserResponse cr = new UserResponse();
+                    cr.setUserName("Code: "+response.code());
+                    userList.add(cr);
+                    listAdapter=new ListAdapter(userList,UserManagament.this);
+                    recyclerView.setAdapter(listAdapter);
                     Toast.makeText(getApplicationContext(), "onResponse is not successful", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 userList = response.body();
+                listAdapter=new ListAdapter(userList,UserManagament.this);
+                recyclerView.setAdapter(listAdapter);
+
+                    //userList.add(new UserResponse(userList.get(i).getIdUser(),userList.get(i).getUserName(),userList.get(i).getLastName(),userList.get(i).getEmail(),userList.get(i).getPassword(),userList.get(i).getUserType(),userList.get(i).getPlan()));
             }
 
             @Override
@@ -60,18 +76,7 @@ public class UserManagament extends AppCompatActivity {
             }
         });
 
-        userList = new ArrayList<>();
-        for(int i=0; i<userList.size();i++){
-            userList.add(userList.get(i));
-            System.out.println("usuario");
-        }
-        //userList.add(new UserResponse(6875485,"Marioly","Vargas","marioly@gmail.com","molly","cliente","gold"));
-        //userList.add(new UserResponse(88732742,"Erlan","Gonzales","erlan@gmail.com","erlan","encargado",""));
 
-        ListAdapter listAdapter=new ListAdapter(userList,UserManagament.this);
-        RecyclerView recyclerView = findViewById(R.id.rvUsers);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(UserManagament.this));
-        recyclerView.setAdapter(listAdapter);
+
     }
 }
