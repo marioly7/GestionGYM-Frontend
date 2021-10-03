@@ -1,5 +1,8 @@
 package com.example.gymmanagement.activity;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,11 +30,15 @@ public class UserManagament extends AppCompatActivity {
     ListAdapter listAdapter;
     RecyclerView recyclerView;
     Request request = new Request();
+    Integer userIdEdit, userId, userTypeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_managament);
+
+        userId = getIntent().getIntExtra("userId", 0);
+        userTypeId = getIntent().getIntExtra("userTypeId", 0);
 
         recyclerView = findViewById(R.id.rvUsers);
         recyclerView.setHasFixedSize(true);
@@ -55,6 +62,18 @@ public class UserManagament extends AppCompatActivity {
                 userList = response.body();
                 listAdapter=new ListAdapter(userList,UserManagament.this);
                 recyclerView.setAdapter(listAdapter);
+
+
+                listAdapter.setOnItemClickListener(new ListAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        userIdEdit=userList.get(position).getIdUser();
+                        Intent intent = new Intent (UserManagament.this, EditUser.class);
+                        intent.putExtra("userIdEdit",userIdEdit);
+                        intent.putExtra("userId",userId);
+                        startActivity(intent);
+                    }
+                });
 
                     //userList.add(new UserResponse(userList.get(i).getIdUser(),userList.get(i).getUserName(),userList.get(i).getLastName(),userList.get(i).getEmail(),userList.get(i).getPassword(),userList.get(i).getUserType(),userList.get(i).getPlan()));
             }

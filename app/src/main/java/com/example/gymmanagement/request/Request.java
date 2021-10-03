@@ -30,6 +30,25 @@ public class Request {
         return call;
     }
 
+
+    public Call<UserResponse> getUserById(Integer userId){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl("http://192.168.31.150:8085/user/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+
+
+        UserApi userApi = retrofit.create(UserApi.class);
+        Call<UserResponse> call = userApi.getUserById(userId);
+
+        return call;
+    }
+
     public Call<Integer> getId(String email, String password){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);

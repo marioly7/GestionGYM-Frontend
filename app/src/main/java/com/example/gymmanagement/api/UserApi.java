@@ -17,6 +17,9 @@ public interface UserApi {
     @GET("userType")
     Call<Integer> getUserType(@Query("userId") Integer userId);
 
+    @GET("userById")
+    Call<UserResponse> getUserById(@Query("userId") Integer userId);
+
     @GET("login")
     Call<Integer> getId(@Query("email") String email, @Query("password") String password);
 

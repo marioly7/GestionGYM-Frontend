@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -18,12 +19,21 @@ import java.util.List;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private List<UserResponse> userList;
     private LayoutInflater inflater;
+    private OnItemClickListener userListener;
     private Context context;
 
     public ListAdapter (List<UserResponse> userList, Context context){
         this.userList = userList;
         this.context = context;
         this.inflater =  LayoutInflater.from(context);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        userListener = listener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
     }
 
     @Override
@@ -34,7 +44,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.list_user_element, null);
-        return new ListAdapter.ViewHolder(view);
+        ListAdapter.ViewHolder userViewHolder = new ListAdapter.ViewHolder(view, userListener);
+        return userViewHolder;
     }
 
     @Override
@@ -50,7 +61,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         ImageView iconImage;
         TextView name, lastName, email, userType, plan, ci;
 
-        ViewHolder(View itemView){
+        ViewHolder(@NonNull @NotNull View itemView, final OnItemClickListener listener){
             super(itemView);
             name = itemView.findViewById(R.id.tvName);
             lastName = itemView.findViewById(R.id.tvLastName);
@@ -59,7 +70,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             userType = itemView.findViewById(R.id.tvUserType);
             plan = itemView.findViewById(R.id.tvPlan);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener!=null){
+                        int position = getAdapterPosition();
+                        //lyCategory.setBackgroundColor(Color.parseColor("#ffffff"));
+                        if (position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
+
 
         void bindData(final UserResponse item){
             //iconImage.setColorFilter(Color.parseColor(item.get));
