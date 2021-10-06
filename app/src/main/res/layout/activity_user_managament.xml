@@ -9,6 +9,7 @@
         android:background="#DC09375C"
         tools:context=".activity.UserManagament">
 
+
     <TextView
             android:text="GESTIÓN DE USUARIOS"
             android:layout_width="wrap_content"
@@ -21,6 +22,13 @@
             tools:layout_editor_absoluteY="16dp"
             tools:layout_editor_absoluteX="16dp"
             tools:ignore="MissingConstraints"/>
+
+    <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchUser"
+            ></SearchView>
+
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/rvUsers"

@@ -2,34 +2,83 @@ package com.example.gymmanagement.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.gymmanagement.R;
+import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> implements Filterable {
     private List<UserResponse> userList;
     private LayoutInflater inflater;
     private OnItemClickListener userListener;
     private Context context;
+    private List<UserResponse> filteredUserList;
 
-    public ListAdapter (List<UserResponse> userList, Context context){
-        this.userList = userList;
+    public ListAdapter (List<UserResponse> userArrayList, Context context){
+        this.userList = userArrayList;
         this.context = context;
         this.inflater =  LayoutInflater.from(context);
+        this.filteredUserList = userList;
     }
+
+
 
     public void setOnItemClickListener(OnItemClickListener listener){
         userListener = listener;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return filtered;
+    }
+
+    private final Filter filtered = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            if(charSequence == null || charSequence.length() == 0 ){
+                filteredUserList = userList;
+            }else if (filteredUserList.isEmpty()){
+                Toast.makeText(context.getApplicationContext(), "NO EXISTEN COINCIDENCIAS",Toast.LENGTH_SHORT).show();
+            }else{
+                String txt = charSequence.toString().toLowerCase();
+                ArrayList<UserResponse> tempList = new ArrayList<>();
+
+
+                for(UserResponse ur : filteredUserList){
+                    if(ur.getUserName().toLowerCase().contains(txt)) {
+                        tempList.add(ur);
+                    }
+                }
+                filteredUserList = tempList;
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredUserList;
+            results.count = userList.size();
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            filteredUserList = (List<UserResponse>) filterResults.values;
+            notifyDataSetChanged();
+        }
+    };
+
+    public List<UserResponse> getCurrentList() {
+        return filteredUserList;
     }
 
     public interface OnItemClickListener{
@@ -38,7 +87,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return userList.size();
+        return filteredUserList.size();
     }
 
     @Override
@@ -50,11 +99,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ListAdapter.ViewHolder holder, int position) {
-        holder.bindData(userList.get(position));
+        holder.bindData(filteredUserList.get(position));
     }
 
     public void setItems(List<UserResponse> items){
-        userList = items;
+        filteredUserList = items;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -94,5 +143,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             plan.setText(item.getPlan());
             ci.setText(item.getIdUser().toString());
         }
+
+
     }
 }

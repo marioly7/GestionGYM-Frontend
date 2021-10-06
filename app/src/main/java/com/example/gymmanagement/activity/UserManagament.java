@@ -2,8 +2,7 @@ package com.example.gymmanagement.activity;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,10 +26,12 @@ import java.util.List;
 public class UserManagament extends AppCompatActivity {
 
     List<UserResponse>  userList = new ArrayList<>();
+    List<UserResponse>  userOriginalList = new ArrayList<>();
     ListAdapter listAdapter;
     RecyclerView recyclerView;
     Request request = new Request();
     Integer userIdEdit, userId, userTypeId;
+    SearchView searchUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,26 @@ public class UserManagament extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(UserManagament.this));
         recyclerView.setAdapter(listAdapter);
 
+        searchUser = findViewById(R.id.searchUser);
 
+        searchUser.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                listAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
+
+        getUserListFromRestAPI();
+
+    }
+
+    public void getUserListFromRestAPI(){
         request.getAllUsers().enqueue(new Callback<ArrayList<UserResponse>>() {
             @Override
             public void onResponse(Call<ArrayList<UserResponse>> call, Response<ArrayList<UserResponse>> response) {
@@ -54,8 +74,7 @@ public class UserManagament extends AppCompatActivity {
                     UserResponse cr = new UserResponse();
                     cr.setUserName("Code: "+response.code());
                     userList.add(cr);
-                    listAdapter=new ListAdapter(userList,UserManagament.this);
-                    recyclerView.setAdapter(listAdapter);
+                    userOriginalList.add(cr);
                     Toast.makeText(getApplicationContext(), "onResponse is not successful", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -67,7 +86,8 @@ public class UserManagament extends AppCompatActivity {
                 listAdapter.setOnItemClickListener(new ListAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        userIdEdit=userList.get(position).getIdUser();
+                        userOriginalList = listAdapter.getCurrentList();
+                        userIdEdit=userOriginalList.get(position).getIdUser();
                         Intent intent = new Intent (UserManagament.this, EditUser.class);
                         intent.putExtra("userIdEdit",userIdEdit);
                         intent.putExtra("userId",userId);
@@ -75,7 +95,7 @@ public class UserManagament extends AppCompatActivity {
                     }
                 });
 
-                    //userList.add(new UserResponse(userList.get(i).getIdUser(),userList.get(i).getUserName(),userList.get(i).getLastName(),userList.get(i).getEmail(),userList.get(i).getPassword(),userList.get(i).getUserType(),userList.get(i).getPlan()));
+                //userList.add(new UserResponse(userList.get(i).getIdUser(),userList.get(i).getUserName(),userList.get(i).getLastName(),userList.get(i).getEmail(),userList.get(i).getPassword(),userList.get(i).getUserType(),userList.get(i).getPlan()));
             }
 
             @Override
@@ -83,8 +103,9 @@ public class UserManagament extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Error onFailure", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
+        listAdapter=new ListAdapter(userList,UserManagament.this);
+        recyclerView.setAdapter(listAdapter);
+        listAdapter.notifyDataSetChanged();
     }
+
 }
