@@ -20,6 +20,7 @@ public class MenuActivity extends AppCompatActivity {
     Integer userId, userTypeId;
     Intent intent;
     Button usersButton;
+    Button userDisabledButton;
     List<UserResponse> userList;
 
     @Override
@@ -31,6 +32,17 @@ public class MenuActivity extends AppCompatActivity {
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
 
         registerButton = findViewById(R.id.registerButton);
+        userDisabledButton = findViewById(R.id.userDisabledButton);
+
+        userDisabledButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(MenuActivity.this, UserDisabledManagement.class);
+                intent.putExtra("userId",userId);
+                intent.putExtra("userTypeId",userTypeId);
+                startActivity(intent);
+            }
+        });
 
 
         registerButton.setOnClickListener(new View.OnClickListener() {

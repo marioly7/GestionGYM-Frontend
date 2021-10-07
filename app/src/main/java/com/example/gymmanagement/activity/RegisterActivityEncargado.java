@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 
 public class RegisterActivityEncargado extends AppCompatActivity{
 
-    EditText etName, etLastName, etEmail, etPassword, etConfirmPassword;
+    EditText etCi, etName, etLastName, etEmail, etPassword, etConfirmPassword;
     ArrayList<UserResponse> users;
     Button registerButton;
     Integer userType, planId;
@@ -43,6 +43,7 @@ public class RegisterActivityEncargado extends AppCompatActivity{
         userId = getIntent().getIntExtra("userId", 0);
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
 
+        etCi = findViewById(R.id.etCI);
         etName = findViewById(R.id.etName);
         etLastName = findViewById(R.id.etLastName);
         etEmail = findViewById(R.id.etEmail);
@@ -97,6 +98,9 @@ public class RegisterActivityEncargado extends AppCompatActivity{
                 }else if (etName.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Debe ingresar un nombre", Toast.LENGTH_SHORT).show();
                     return;
+                }else if (etCi.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Debe ingresar CI", Toast.LENGTH_SHORT).show();
+                    return;
                 } else if (etLastName.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Debe ingresar un apellido", Toast.LENGTH_SHORT).show();
                     return;
@@ -137,7 +141,7 @@ public class RegisterActivityEncargado extends AppCompatActivity{
 
 
 
-        request.createUser(userType,etName.getText().toString(),etLastName.getText().toString(),etEmail.getText().toString(),etPassword.getText().toString(),userId,planId).enqueue(new Callback<User>() {
+        request.createUser(Integer.parseInt(etCi.getText().toString()),userType,etName.getText().toString(),etLastName.getText().toString(),etEmail.getText().toString(),etPassword.getText().toString(),userId,planId).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (!response.isSuccessful()) {

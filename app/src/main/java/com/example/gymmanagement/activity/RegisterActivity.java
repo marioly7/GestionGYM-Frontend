@@ -28,11 +28,11 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity{
 
-    EditText etName, etLastName, etEmail, etPassword, etConfirmPassword;
+    EditText etCI, etName, etLastName, etEmail, etPassword, etConfirmPassword;
     ArrayList<UserResponse> users;
     Button registerButton;
     Integer userType, planId;
-    Integer flag=0;
+    Integer flag=0, flagCI=0;
     RadioButton premium, gold, none;
     RadioButton admi, enc, cli;
     Integer userId, userTypeId;
@@ -46,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity{
         userId = getIntent().getIntExtra("userId", 0);
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
 
+        etCI  =findViewById(R.id.etCI);
         etName = findViewById(R.id.etName);
         etLastName = findViewById(R.id.etLastName);
         etEmail = findViewById(R.id.etEmail);
@@ -91,6 +92,17 @@ public class RegisterActivity extends AppCompatActivity{
                     }
                 }
 
+                for (int i=0; i<users.size() ; i++)
+                {
+                    if((etCI.getText().toString()).equals(users.get(i).getIdUser().toString()))
+                    {
+                        flagCI=1;
+                    }
+                    if (flagCI==1){
+                        break;
+                    }
+                }
+
 
                 if(!(etPassword.getText().toString()).equals(etConfirmPassword.getText().toString())){
                     Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
@@ -100,8 +112,16 @@ public class RegisterActivity extends AppCompatActivity{
                     flag=0;
                     Toast.makeText(getApplicationContext(), "El correo: "+etEmail.getText().toString()+" ya pertenece a una cuenta", Toast.LENGTH_SHORT).show();
                     return;
+                }
+                else if(flagCI==1){
+                    flagCI=0;
+                    Toast.makeText(getApplicationContext(), "El CI: "+etCI.getText().toString()+" ya pertenece a una cuenta", Toast.LENGTH_SHORT).show();
+                    return;
                 }else if (etName.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Debes ingresar tu nombre", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if (etCI.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Debe ingresar CI", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (etLastName.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Debes ingresar tu apellido", Toast.LENGTH_SHORT).show();
@@ -146,15 +166,15 @@ public class RegisterActivity extends AppCompatActivity{
 
 
         if(admi.isChecked()){
-            userType = 2;
-        }else if(enc.isChecked()){
-            userType = 3;
-        }else{
             userType = 1;
+        }else if(enc.isChecked()){
+            userType = 2;
+        }else{
+            userType = 3;
         }
 
 
-        request.createUser(userType,etName.getText().toString(),etLastName.getText().toString(),etEmail.getText().toString(),etPassword.getText().toString(),userId,planId).enqueue(new Callback<User>() {
+        request.createUser(Integer.parseInt(etCI.getText().toString()),userType,etName.getText().toString(),etLastName.getText().toString(),etEmail.getText().toString(),etPassword.getText().toString(),userId,planId).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (!response.isSuccessful()) {

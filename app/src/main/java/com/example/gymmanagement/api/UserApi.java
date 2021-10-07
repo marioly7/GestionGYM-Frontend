@@ -9,10 +9,13 @@ import java.util.ArrayList;
 
 public interface UserApi {
 
-    //@Headers({"Accept: application/json"})
+    @Headers({"Accept: application/json"})
 
     @GET("allUsers")
     Call<ArrayList<UserResponse>> getAllUsers();
+
+    @GET("allUsersDisabled")
+    Call<ArrayList<UserResponse>> getAllUsersDisabled();
 
     @GET("userType")
     Call<Integer> getUserType(@Query("userId") Integer userId);
@@ -26,5 +29,13 @@ public interface UserApi {
     @POST("addUser")
     Call<User> createUser(@Body User user);
 
+    @PUT("updateUser")
+    Call<User> updateUser(@Body User user);
+
+    @PUT("enableUser")
+    Call<User> enableUser(@Query("userId") Integer userId);
+
+    @PUT("deleteUser")
+    Call<User> disableUser(@Body User user);
 
 }
