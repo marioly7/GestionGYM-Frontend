@@ -31,10 +31,8 @@ public class RegisterActivity extends AppCompatActivity{
     EditText etName, etLastName, etEmail, etPassword, etConfirmPassword;
     ArrayList<UserResponse> users;
     Button registerButton;
-    Integer userType, planId;
-    Integer flag=0;
-    RadioButton premium, gold, none;
-    RadioButton admi, enc, cli;
+    Integer userType, planId, flag=0;
+    RadioButton premium, gold, none, admi, enc, cli;
     Integer userId, userTypeId;
     Request request = new Request();
 

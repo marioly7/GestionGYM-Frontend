@@ -1,6 +1,7 @@
 package com.example.gymmanagement.activity;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,10 +17,9 @@ import java.util.List;
 
 public class MenuActivity extends AppCompatActivity {
 
-    Button registerButton;
+    Button registerButton, paymentButton, usersButton;
     Integer userId, userTypeId;
     Intent intent;
-    Button usersButton;
     List<UserResponse> userList;
 
     @Override
@@ -31,7 +31,7 @@ public class MenuActivity extends AppCompatActivity {
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
 
         registerButton = findViewById(R.id.registerButton);
-
+        paymentButton = findViewById(R.id.paymentButton);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +52,17 @@ public class MenuActivity extends AppCompatActivity {
                 intent.putExtra("userId",userId);
                 intent.putExtra("userTypeId",userTypeId);
                 startActivity(intent);
+            }
+        });
+
+        paymentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(MenuActivity.this, PaymentActivity.class);
+//                intent.putExtra("userId",userId);
+//                intent.putExtra("userTypeId",userTypeId);
+                startActivity(intent);
+                Log.d("Payment", "payment ...");
             }
         });
     }

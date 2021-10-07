@@ -1,5 +1,6 @@
 package com.example.gymmanagement.request;
 
+import com.example.gymmanagement.Parametros;
 import com.example.gymmanagement.api.UserApi;
 import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
@@ -18,7 +19,7 @@ public class Request {
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
         Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("http://192.168.31.150:8085/user/")
+                .baseUrl(Parametros.HOST + "user/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
                 .build();
@@ -37,7 +38,7 @@ public class Request {
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
         Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("http://192.168.31.150:8085/user/")
+                .baseUrl(Parametros.HOST + "user/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
                 .build();
@@ -55,7 +56,7 @@ public class Request {
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.31.150:8085/user/")
+                .baseUrl(Parametros.HOST + "user/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
                 .build();
@@ -73,7 +74,7 @@ public class Request {
 
         Retrofit retrofit=new Retrofit.Builder()
                 //.baseUrl("https://jsonplaceholder.typicode.com/")
-                .baseUrl("http://192.168.31.150:8085/user/")
+                .baseUrl(Parametros.HOST + "user/")
                 //.baseUrl("http://192.168.31.148:8081/v1/user/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
@@ -101,7 +102,7 @@ public class Request {
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
         Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("http://192.168.31.150:8085/user/")
+                .baseUrl(Parametros.HOST + "user/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
                 .build();

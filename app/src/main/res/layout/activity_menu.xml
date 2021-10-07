@@ -86,50 +86,49 @@
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/lluno"
-            android:layout_marginTop="30dp"
-            android:weightSum="2"
-    >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lluno"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/paymentButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:weightSum="1"
-        >
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="  Registrar Pago    "
-                    android:background="#FFC107"
-                    android:padding="10dp"
-                    android:textStyle="bold"
-                    android:textColor="#192777"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-            ></Button>
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#FFC107"
+                android:padding="10dp"
+                android:text="  Registrar Pago    "
+                android:textColor="#192777"
+                android:textStyle="bold"></Button>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:weightSum="1"
-        >
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gestion de Actividades"
-                    android:background="#FFC107"
-                    android:padding="10dp"
-                    android:textStyle="bold"
-                    android:textColor="#192777"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-            ></Button>
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#FFC107"
+                android:padding="10dp"
+                android:text="Gestion de Actividades"
+                android:textColor="#192777"
+                android:textStyle="bold"></Button>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
