@@ -33,7 +33,7 @@ public interface UserApi {
     Call<User> updateUser(@Body User user);
 
     @PUT("enableUser")
-    Call<User> enableUser(@Query("userId") Integer userId);
+    Call<User> enableUser(@Body User user);
 
     @PUT("deleteUser")
     Call<User> disableUser(@Body User user);

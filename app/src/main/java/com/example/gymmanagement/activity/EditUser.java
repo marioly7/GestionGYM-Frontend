@@ -64,18 +64,26 @@ public class EditUser extends AppCompatActivity {
         enableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                request.enableUser(userIdEdit).enqueue(new Callback<User>() {
+                User user=new User();
+                user.setIdUser(userIdEdit);
+                request.enableUser(user).enqueue(new Callback<User>() {
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (!response.isSuccessful()) {
                             //textViewResult.setText("Code: " + response.code());
                             Toast.makeText(getApplicationContext(), "onResponse is not successful", Toast.LENGTH_SHORT).show();
                             return;
                         }
+
+                        Toast.makeText(getApplicationContext(), "Usuario habilitado exitosamente", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent (EditUser.this, UserManagament.class);
+                        intent.putExtra("userId",userId);
+                        intent.putExtra("userTypeId",userTypeId);
+                        startActivity(intent);
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Error onFailure", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Error onFailure enable edit user", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

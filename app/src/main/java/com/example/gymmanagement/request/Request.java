@@ -145,7 +145,7 @@ public class Request {
         return call;
     }
 
-    public Call<User> enableUser(Integer userId){
+    public Call<User> enableUser(User user){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
@@ -157,7 +157,7 @@ public class Request {
                 .build();
         final UserApi userApi= retrofit.create(UserApi.class);
 
-        Call<User> call = userApi.enableUser(userId);
+        Call<User> call = userApi.enableUser(user);
 
         return call;
     }
