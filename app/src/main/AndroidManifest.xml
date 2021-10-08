@@ -26,6 +26,12 @@
         </activity>
         <activity android:name=".activity.PaymentActivity">
         </activity>
+        <activity android:name=".activity.PieChartPlans">
+        </activity>
+        <activity android:name=".activity.BarChartPlans">
+        </activity>
+        <activity android:name=".activity.ChartsMenu">
+        </activity>
         <activity android:name=".activity.RegisterActivity">
         </activity>
         <activity android:name=".activity.RegisterActivityEncargado">

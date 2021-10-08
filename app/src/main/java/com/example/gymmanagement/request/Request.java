@@ -1,7 +1,9 @@
 package com.example.gymmanagement.request;
 
 import com.example.gymmanagement.Parametros;
+import com.example.gymmanagement.api.PlanApi;
 import com.example.gymmanagement.api.UserApi;
+import com.example.gymmanagement.model.Plan;
 import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
 import okhttp3.OkHttpClient;
@@ -27,6 +29,24 @@ public class Request {
 
         UserApi userApi = retrofit.create(UserApi.class);
         Call<ArrayList<UserResponse>> call = userApi.getAllUsers();
+
+        return call;
+    }
+
+    public Call<ArrayList<Plan>> getPlans(){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "plan/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+
+
+        PlanApi planApi = retrofit.create(PlanApi.class);
+        Call<ArrayList<Plan>> call = planApi.getPlans();
 
         return call;
     }

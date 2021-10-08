@@ -258,41 +258,11 @@
         ></TextView>
 
         <RadioGroup
-                android:id="@+id/radioPlan"
+                android:id="@+id/radioPlans"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="50dp"
         >
-
-            <RadioButton
-                    android:id="@+id/radioPremium"
-                    android:layout_width="match_parent"
-                    android:textSize="20dp"
-                    android:buttonTint="#4B4DC6"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp"
-                    android:text="Premium"/>
-
-            <RadioButton
-                    android:id="@+id/radioGold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="15dp"
-                    android:textSize="20dp"
-                    android:buttonTint="#4B4DC6"
-                    android:paddingTop="15dp"
-                    android:text="Gold"/>
-
-            <RadioButton
-                    android:id="@+id/radioNone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="15dp"
-                    android:textSize="20dp"
-                    android:buttonTint="#4B4DC6"
-                    android:paddingTop="15dp"
-                    android:text="Ninguno"/>
 
         </RadioGroup>
 

@@ -153,6 +153,20 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="30dp"
         ></Button>
+
+        <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Gráficos"
+                android:id="@+id/graficosButton"
+                android:padding="10dp"
+                android:textColor="#192777"
+                android:textStyle="bold"
+                android:background="#FFC107"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp"
+        ></Button>
     </LinearLayout>
 
 

@@ -58,7 +58,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
                 ArrayList<UserResponse> tempList = new ArrayList<>();
 
                 for(UserResponse ur : filteredUserList){
-                    if (ur.getUserName().toLowerCase().contains(txt)||ur.getIdUser().toString().toLowerCase().contains(txt)||ur.getPlan().toLowerCase().contains(txt))
+                    if (ur.getUserName().toLowerCase().contains(txt)||ur.getIdUser().toString().toLowerCase().contains(txt))
                     {
                         tempList.add(ur);
                     }

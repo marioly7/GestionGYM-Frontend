@@ -11,7 +11,9 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.gymmanagement.R;
+import com.example.gymmanagement.adapter.ListAdapter;
 import com.example.gymmanagement.api.UserApi;
+import com.example.gymmanagement.model.Plan;
 import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
 import com.example.gymmanagement.request.Request;
@@ -30,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity{
 
     EditText etCI, etName, etLastName, etEmail, etPassword, etConfirmPassword;
     ArrayList<UserResponse> users;
+    ArrayList<Plan> plans;
     Button registerButton;
     Integer userType, planId;
     Integer flag=0, flagCI=0;
@@ -37,11 +40,14 @@ public class RegisterActivity extends AppCompatActivity{
     RadioButton admi, enc, cli;
     Integer userId, userTypeId;
     Request request = new Request();
+    RadioGroup radioPlans;
+    RadioButton rdbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
 
         userId = getIntent().getIntExtra("userId", 0);
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
@@ -56,9 +62,9 @@ public class RegisterActivity extends AppCompatActivity{
         admi = findViewById(R.id.radioAdmi);
         cli = findViewById(R.id.radioCli);
         enc = findViewById(R.id.radioEnc);
-        premium = findViewById(R.id.radioPremium);
-        gold = findViewById(R.id.radioGold);
-        none = findViewById(R.id.radioNone);
+        radioPlans = findViewById(R.id.radioPlans);
+
+        getPlans();
 
 
         request.getAllUsers().enqueue(new Callback<ArrayList<UserResponse>>() {
@@ -78,9 +84,25 @@ public class RegisterActivity extends AppCompatActivity{
             }
         });
 
+        radioPlans.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton radioButton = (RadioButton) findViewById(i);
+                if(radioButton.getText()!="Ninguno"){
+                    planId = radioButton.getId();
+                }else{
+                    planId = null;
+                }
+                //Toast.makeText(getApplicationContext(),radioButton.getText(),Toast.LENGTH_LONG).show();
+            }
+        });
+
         registerButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+
+
                 for (int i=0; i<users.size() ; i++)
                 {
                     if((etEmail.getText().toString()).equals(users.get(i).getEmail()))
@@ -135,9 +157,6 @@ public class RegisterActivity extends AppCompatActivity{
                 }else if (!admi.isChecked() && !cli.isChecked() && !enc.isChecked()) {
                     Toast.makeText(getApplicationContext(), "Debe seleccionar un tipo de usuario", Toast.LENGTH_SHORT).show();
                     return;
-                }else if (!premium.isChecked() && !gold.isChecked() && cli.isChecked()) {
-                    Toast.makeText(getApplicationContext(), "Debe seleccionar un plan", Toast.LENGTH_SHORT).show();
-                    return;
                 }else {
                     if (validateEmail(etEmail.getText().toString())) {
                         //Toast.makeText(RegisterActivity.this, "valida correo", Toast.LENGTH_SHORT).show();
@@ -155,14 +174,6 @@ public class RegisterActivity extends AppCompatActivity{
     private void createUser() {
 
         //Toast.makeText(RegisterActivity.this,"entra a create user",Toast.LENGTH_SHORT).show();
-
-        if(premium.isChecked()){
-            planId =1;
-        }else if(gold.isChecked()){
-            planId = 2;
-        }else{
-            planId = null;
-        }
 
 
         if(admi.isChecked()){
@@ -200,6 +211,58 @@ public class RegisterActivity extends AppCompatActivity{
         //Toast.makeText(RegisterActivity.this,"entra a validate email",Toast.LENGTH_SHORT).show();
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(etEmail).matches();
+    }
+
+    public void getPlans(){
+        Request request = new Request();
+        request.getPlans().enqueue(new Callback<ArrayList<Plan>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Plan>> call, Response<ArrayList<Plan>> response) {
+                if (!response.isSuccessful()) {
+                    //textViewResult.setText("Code: " + response.code());
+                    Plan cr = new Plan();
+                    //cr.setUserName("Code: "+response.code());
+                    plans.add(cr);
+                    Toast.makeText(getApplicationContext(), "onResponse is not successful", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                plans = response.body();
+                addRadioButtons();
+
+                //userList.add(new UserResponse(userList.get(i).getIdUser(),userList.get(i).getUserName(),userList.get(i).getLastName(),userList.get(i).getEmail(),userList.get(i).getPassword(),userList.get(i).getUserType(),userList.get(i).getPlan()));
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Plan>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error onFailure", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    public void addRadioButtons(){
+        radioPlans.setOrientation(LinearLayout.VERTICAL);
+        //
+        for(int i=0; i<plans.size();i++) {
+            rdbtn = new RadioButton(RegisterActivity.this);
+            rdbtn.setId(View.generateViewId());
+            //System.out.println("id "+rdbtn.getId());
+            rdbtn.setText(plans.get(i).getPlan());
+            rdbtn.setTextSize(22);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+            rdbtn.setLayoutParams(params);
+            radioPlans.addView(rdbtn);
+        }
+
+        rdbtn = new RadioButton(RegisterActivity.this);
+        rdbtn.setId(View.generateViewId());
+        rdbtn.setText("Ninguno");
+        rdbtn.setTextSize(22);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+        rdbtn.setLayoutParams(params);
+        radioPlans.addView(rdbtn);
+
+
     }
 
 }
