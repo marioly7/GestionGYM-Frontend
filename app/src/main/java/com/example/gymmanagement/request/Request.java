@@ -1,7 +1,9 @@
 package com.example.gymmanagement.request;
 
 import com.example.gymmanagement.Parametros;
+import com.example.gymmanagement.api.PlanApi;
 import com.example.gymmanagement.api.UserApi;
+import com.example.gymmanagement.model.Plan;
 import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
 import okhttp3.OkHttpClient;
@@ -27,6 +29,42 @@ public class Request {
 
         UserApi userApi = retrofit.create(UserApi.class);
         Call<ArrayList<UserResponse>> call = userApi.getAllUsers();
+
+        return call;
+    }
+
+    public Call<ArrayList<Plan>> getPlans(){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "plan/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+
+
+        PlanApi planApi = retrofit.create(PlanApi.class);
+        Call<ArrayList<Plan>> call = planApi.getPlans();
+
+        return call;
+    }
+
+    public Call<ArrayList<UserResponse>> getAllUsersDisabled(){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl("http://192.168.31.150:8085/user/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+
+
+        UserApi userApi = retrofit.create(UserApi.class);
+        Call<ArrayList<UserResponse>> call = userApi.getAllUsersDisabled();
 
         return call;
     }
@@ -67,7 +105,7 @@ public class Request {
         return call;
     }
 
-    public Call<User> createUser(Integer userType, String userName, String lastName, String email, String password, Integer regitrantId, Integer planId){
+    public Call<User> createUser(Integer ci, Integer userType, String userName, String lastName, String email, String password, Integer regitrantId, Integer planId){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
@@ -83,6 +121,7 @@ public class Request {
 
 
         User user = new User();
+        user.setIdUser(ci);
         user.setUserTypeId(userType);
         user.setUserName(userName);
         user.setLastName(lastName);
@@ -96,7 +135,7 @@ public class Request {
         return call;
     }
 
-    public Call<UserResponse> updateUser(UserResponse user){
+    public Call<User> updateUser(Integer ci, Integer userType, String userName, String lastName, String email, String password, Integer regitrantId, Integer planId){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
@@ -111,15 +150,81 @@ public class Request {
         UserApi userApi= retrofit.create(UserApi.class);
 
 
-        UserResponse newUser = new UserResponse();
-        newUser.setUserType(user.getUserType());
-        newUser.setUserName(user.getUserName());
-        newUser.setLastName(user.getLastName());
-        newUser.setEmail(user.getEmail());
-        newUser.setPassword(user.getPassword());
-        newUser.setPlan(user.getPlan());
+        User user = new User();
+        user.setIdUser(ci);
+        user.setUserTypeId(userType);
+        user.setUserName(userName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setRegistrantId(regitrantId);
+        user.setPlanId(planId);
 
-        Call<UserResponse> call = userApi.updateUser(newUser);
+        Call<User> call = userApi.updateUser(user);
+
+        return call;
+    }
+
+    public Call<User> updateUserPlan(User user){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                //.baseUrl("https://jsonplaceholder.typicode.com/")
+                .baseUrl(Parametros.HOST + "user/")
+                //.baseUrl("http://192.168.31.148:8081/v1/user/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        UserApi userApi= retrofit.create(UserApi.class);
+
+
+//        User newUser = new User();
+//        newUser.setUserTypeId(user.getUserTypeId());
+//        newUser.setUserName(user.getUserName());
+//        newUser.setLastName(user.getLastName());
+//        newUser.setEmail(user.getEmail());
+//        newUser.setPassword(user.getPassword());
+//        newUser.setRegistrantId(user.getRegistrantId());
+        user.setPlanId(user.getPlanId());
+
+        Call<User> call = userApi.updateUser(user);
+
+        return call;
+    }
+
+
+    public Call<User> enableUser(User user){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "user/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        final UserApi userApi= retrofit.create(UserApi.class);
+
+        Call<User> call = userApi.enableUser(user);
+
+        return call;
+    }
+
+    public Call<User> disableUser(User user){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "user/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        final UserApi userApi= retrofit.create(UserApi.class);
+
+        Call<User> call = userApi.disableUser(user);
 
         return call;
     }

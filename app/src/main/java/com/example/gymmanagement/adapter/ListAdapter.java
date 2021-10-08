@@ -10,6 +10,7 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.gymmanagement.R;
+import com.example.gymmanagement.activity.UserManagament;
 import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
 import org.jetbrains.annotations.NotNull;
@@ -25,6 +26,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
     private OnItemClickListener userListener;
     private Context context;
     private List<UserResponse> filteredUserList;
+    private UserManagament userManagament;
 
     public ListAdapter (List<UserResponse> userArrayList, Context context){
         this.userList = userArrayList;
@@ -55,9 +57,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
                 String txt = charSequence.toString().toLowerCase();
                 ArrayList<UserResponse> tempList = new ArrayList<>();
 
-
                 for(UserResponse ur : filteredUserList){
-                    if(ur.getUserName().toLowerCase().contains(txt)) {
+                    if (ur.getUserName().toLowerCase().contains(txt)||ur.getIdUser().toString().toLowerCase().contains(txt))
+                    {
                         tempList.add(ur);
                     }
                 }

@@ -7,11 +7,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#C809375C"
-        tools:context=".activity.UserManagament">
+        tools:context=".activity.UserDisabledManagement">
+
 
 
     <TextView
-            android:text="GESTIÓN DE USUARIOS"
+            android:text="USUARIOS DESHABILITADOS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -26,13 +27,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            >
-    <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/searchUser"
-            android:queryHint="Busqueda"
-            ></SearchView>
+    >
+        <SearchView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchUser"
+                android:queryHint="Busqueda"
+        ></SearchView>
 
 
     </LinearLayout>

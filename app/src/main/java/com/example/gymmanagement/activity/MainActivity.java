@@ -115,10 +115,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                              //Toast.makeText(MainActivity.this,"userTypeId: "+userTypeId, Toast.LENGTH_SHORT).show();
 
                              switch (userTypeId){
-                                 case 2:
+                                 case 1:
                                      intent = new Intent(MainActivity.this, MenuActivity.class);
                                      break;
-                                 case 3:
+                                 case 2:
                                      intent = new Intent(MainActivity.this, MenuActivityEncargado.class);
                                      break;
                              }
