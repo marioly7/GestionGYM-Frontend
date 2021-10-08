@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="#3CFBE100"
+    >
+<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+           android:src="@drawable/fitnesslogo"
+           android:id="@+id/ivLogo"
+           tools:ignore="MissingConstraints"></ImageView>
+
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+          android:text="VIRTUAL FITNESS"
+          android:layout_gravity="center"
+          android:textSize="40dp"
+          android:textStyle="bold"
+          android:id="@+id/titulo"
+          android:textColor="#162DA8"
+          ></TextView>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="de"
+              android:textSize="20dp"
+              android:id="@+id/tvDe"
+              android:layout_gravity="center"
+    ></TextView>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="Marioly Vargas"
+              android:textSize="22dp"
+              android:id="@+id/tvMarioly"
+              android:layout_gravity="center"
+    ></TextView>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="Mayumi Nina"
+              android:textSize="22dp"
+              android:id="@+id/tvMayumi"
+              android:layout_gravity="center"
+    ></TextView>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="Napoleon Cuba"
+              android:textSize="22dp"
+              android:id="@+id/tvNapoleon"
+              android:layout_gravity="center"
+    ></TextView>
+</LinearLayout>
