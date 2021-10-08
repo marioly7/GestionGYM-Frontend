@@ -26,5 +26,8 @@ public interface UserApi {
     @POST("addUser")
     Call<User> createUser(@Body User user);
 
+    @PUT("updateUser")
+    Call<UserResponse> updateUser(@Body UserResponse user);
+
 
 }

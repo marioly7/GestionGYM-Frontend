@@ -1,7 +1,10 @@
 package com.example.gymmanagement.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -14,6 +17,7 @@ import com.example.gymmanagement.R;
 import com.example.gymmanagement.api.UserApi;
 import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
+import com.example.gymmanagement.request.Request;
 
 import java.util.ArrayList;
 
@@ -27,28 +31,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PaymentActivity extends AppCompatActivity {
     ArrayList<UserResponse> users;
-    User user1,user2;
+    Request request = new Request();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
-
-        Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl(Parametros.HOST + "user/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
-                .build();
-
-
-        UserApi userApi = retrofit.create(UserApi.class);
-        Call<ArrayList<UserResponse>> call = userApi.getAllUsers();
-
-        call.enqueue(new Callback<ArrayList<UserResponse>>() {
+        request.getAllUsers().enqueue(new Callback<ArrayList<UserResponse>>() {
             @Override
             public void onResponse(Call<ArrayList<UserResponse>> call, Response<ArrayList<UserResponse>> response) {
                 if (!response.isSuccessful()) {
@@ -56,9 +46,7 @@ public class PaymentActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "onResponse is not successful", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Log.d("prueba", ""+users);
                 users = response.body();
-                Log.d("prueba", ""+users);
                 init();
             }
 
@@ -68,6 +56,8 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
         init();
+
+
     }
 
     public void init(){

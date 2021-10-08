@@ -96,6 +96,34 @@ public class Request {
         return call;
     }
 
+    public Call<UserResponse> updateUser(UserResponse user){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                //.baseUrl("https://jsonplaceholder.typicode.com/")
+                .baseUrl(Parametros.HOST + "user/")
+                //.baseUrl("http://192.168.31.148:8081/v1/user/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        UserApi userApi= retrofit.create(UserApi.class);
+
+
+        UserResponse newUser = new UserResponse();
+        newUser.setUserType(user.getUserType());
+        newUser.setUserName(user.getUserName());
+        newUser.setLastName(user.getLastName());
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(user.getPassword());
+        newUser.setPlan(user.getPlan());
+
+        Call<UserResponse> call = userApi.updateUser(newUser);
+
+        return call;
+    }
+
     public Call<Integer> getUserType(Integer userId){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
