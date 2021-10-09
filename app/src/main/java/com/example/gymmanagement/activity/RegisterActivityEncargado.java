@@ -149,7 +149,7 @@ public class RegisterActivityEncargado extends AppCompatActivity{
                     Toast.makeText(RegisterActivityEncargado.this,"Respponse: "+response.code(),Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent (RegisterActivityEncargado.this, MainActivity.class);
+                Intent intent = new Intent (RegisterActivityEncargado.this, MenuActivityEncargado.class);
                 startActivity(intent);
             }
 

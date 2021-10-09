@@ -193,7 +193,7 @@ public class RegisterActivity extends AppCompatActivity{
                     Toast.makeText(RegisterActivity.this,"Respponse: "+response.code(),Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent (RegisterActivity.this, MainActivity.class);
+                Intent intent = new Intent (RegisterActivity.this, MenuActivity.class);
                 startActivity(intent);
             }
 

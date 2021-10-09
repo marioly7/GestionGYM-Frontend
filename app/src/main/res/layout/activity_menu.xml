@@ -108,7 +108,7 @@
                 android:layout_marginRight="20dp"
                 android:background="#FFC107"
                 android:padding="10dp"
-                android:text="  Registrar Pago    "
+                android:text="Gestion de Pagos"
                 android:textColor="#192777"
                 android:textStyle="bold"></Button>
 

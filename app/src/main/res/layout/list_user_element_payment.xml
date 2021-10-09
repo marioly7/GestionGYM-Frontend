@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardViewUser"
+        android:animateLayoutChanges="true"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:background="#A9EFA206"
+            android:orientation="vertical"
+    >
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+        >
+            <ImageView android:layout_width="70dp"
+                       android:layout_height="70dp"
+                       android:id="@+id/userImage"
+                       android:layout_alignParentStart="true"
+                       android:layout_centerInParent="true"
+                       android:layout_alignParentLeft="true"
+                       android:paddingLeft="14dp"
+                       android:paddingRight="14dp"
+                       android:src="@drawable/username"
+            >
+            </ImageView>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cardUserLinear"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="2dp"
+                    android:orientation="vertical"
+                    android:layout_toEndOf="@id/userImage"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@id/userImage"
+            >
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="25dp"
+                >
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2dp"
+                            android:text="Marioly"
+                            android:textSize="24dp"
+                            android:textStyle="bold"
+                            android:id="@+id/tvName"
+                    ></TextView>
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2dp"
+                            android:text=" "
+                    ></TextView>
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2dp"
+                            android:text=" Vargas"
+                            android:textSize="24dp"
+                            android:textStyle="bold"
+                            android:id="@+id/tvLastName"
+                    ></TextView>
+                </LinearLayout>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="6874845"
+                        android:textSize="24dp"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/tvCI"
+                ></TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_centerVertical="true"
+            >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Estado:"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:id="@+id/tvStateStatic"
+                >
+                </TextView>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pagado"
+                        android:textSize="20sp"
+                        android:id="@+id/tvPaymentState"
+                >
+                </TextView>
+                <Button
+                        android:id="@+id/payButton"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginRight="6dp"
+                        android:background="@drawable/circle"
+                        android:layout_marginTop="20dp"
+                        android:drawableTop="@drawable/ic_payment_method_pay_svgrepo_com"
+                        android:paddingTop="10dp"
+                        android:textColor="#fff" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

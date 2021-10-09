@@ -1,8 +1,10 @@
 package com.example.gymmanagement.request;
 
 import com.example.gymmanagement.Parametros;
+import com.example.gymmanagement.api.PaymentApi;
 import com.example.gymmanagement.api.PlanApi;
 import com.example.gymmanagement.api.UserApi;
+import com.example.gymmanagement.model.PaymentResponse;
 import com.example.gymmanagement.model.Plan;
 import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
@@ -15,6 +17,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.util.ArrayList;
 
 public class Request {
+
+    public Call<ArrayList<PaymentResponse>> getAllPayments(){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "payment/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+
+
+        PaymentApi paymentApi = retrofit.create(PaymentApi.class);
+        Call<ArrayList<PaymentResponse>> call = paymentApi.getAllPayments();
+
+        return call;
+    }
+
     public Call<ArrayList<UserResponse>> getAllUsers(){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);

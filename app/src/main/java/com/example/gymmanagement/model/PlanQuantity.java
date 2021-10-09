@@ -3,8 +3,17 @@ package com.example.gymmanagement.model;
 public class PlanQuantity {
     private String plan;
     private Integer quantity;
+    private Integer planId;
 
     public PlanQuantity() {
+    }
+
+    public Integer getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(Integer planId) {
+        this.planId = planId;
     }
 
     public String getPlan() {
