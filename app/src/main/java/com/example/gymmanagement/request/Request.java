@@ -4,10 +4,7 @@ import com.example.gymmanagement.Parametros;
 import com.example.gymmanagement.api.PaymentApi;
 import com.example.gymmanagement.api.PlanApi;
 import com.example.gymmanagement.api.UserApi;
-import com.example.gymmanagement.model.PaymentResponse;
-import com.example.gymmanagement.model.Plan;
-import com.example.gymmanagement.model.User;
-import com.example.gymmanagement.model.UserResponse;
+import com.example.gymmanagement.model.*;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -266,4 +263,52 @@ public class Request {
 
         return call;
     }
+
+    public Call<Integer> getPaymentByUserId(Integer userId){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "payment/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        final PaymentApi paymentApi= retrofit.create(PaymentApi.class);
+
+        Call<Integer> call = paymentApi.getPaymentByUserId(userId);
+
+        return call;
+    }
+
+    public Call<Payment> updatePayment(Integer userId, Integer status, Integer paymentId){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                //.baseUrl("https://jsonplaceholder.typicode.com/")
+                .baseUrl(Parametros.HOST + "payment/")
+                //.baseUrl("http://192.168.31.148:8081/v1/user/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        PaymentApi paymentApi= retrofit.create(PaymentApi.class);
+
+
+        Payment payment = new Payment();
+        payment.setPaymentId(paymentId);
+        payment.setUserId(userId);
+        if(status==0){
+            payment.setStatus(1);
+        }else{
+            payment.setStatus(0);
+        }
+
+        Call<Payment> call = paymentApi.updatePayment(payment);
+
+        return call;
+    }
+
+
 }
