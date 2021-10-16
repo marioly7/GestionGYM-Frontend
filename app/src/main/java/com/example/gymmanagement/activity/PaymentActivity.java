@@ -92,7 +92,13 @@ public class PaymentActivity extends AppCompatActivity {
                     Toast.makeText(PaymentActivity.this,"Respponse: "+response.code(),Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent (PaymentActivity.this, MenuActivity.class);
+
+                Intent intent;
+                if(userTypeId==1){
+                    intent = new Intent (PaymentActivity.this, MenuActivity.class);
+                }else{
+                    intent = new Intent (PaymentActivity.this, MenuActivityEncargado.class);
+                }
                 startActivity(intent);
             }
 

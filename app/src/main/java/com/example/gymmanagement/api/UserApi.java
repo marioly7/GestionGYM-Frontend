@@ -38,4 +38,7 @@ public interface UserApi {
     @PUT("deleteUser")
     Call<User> disableUser(@Body User user);
 
+    @GET("userPlan")
+    Call<String> getUserPlan(@Query("userId") Integer userId);
+
 }

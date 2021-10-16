@@ -13,6 +13,7 @@ import android.os.Bundle;
 import com.example.gymmanagement.R;
 import com.example.gymmanagement.adapter.ListAdapter;
 import com.example.gymmanagement.api.UserApi;
+import com.example.gymmanagement.model.Payment;
 import com.example.gymmanagement.model.Plan;
 import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
@@ -40,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity{
     RadioButton admi, enc, cli;
     Integer userId, userTypeId;
     Request request = new Request();
+    Request requestPayment = new Request();
     RadioGroup radioPlans;
     RadioButton rdbtn;
 
@@ -193,6 +195,22 @@ public class RegisterActivity extends AppCompatActivity{
                     Toast.makeText(RegisterActivity.this,"Respponse: "+response.code(),Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(planId!=null){
+                    request.addPayment(Integer.parseInt(etCI.getText().toString())).enqueue(new Callback<Payment>() {
+                        @Override
+                        public void onResponse(Call<Payment> call, Response<Payment> response) {
+                            Log.d("code","Code: " + response.code());
+                            Toast.makeText(RegisterActivity.this,"Respponse: "+response.code(),Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        @Override
+                        public void onFailure(Call<Payment> call, Throwable t) {
+
+                        }
+                    });
+                }
+
                 Intent intent = new Intent (RegisterActivity.this, MenuActivity.class);
                 startActivity(intent);
             }

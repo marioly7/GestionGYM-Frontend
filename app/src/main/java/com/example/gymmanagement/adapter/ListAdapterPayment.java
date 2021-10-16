@@ -12,7 +12,11 @@ import com.example.gymmanagement.activity.PaymentActivity;
 import com.example.gymmanagement.activity.UserManagament;
 import com.example.gymmanagement.model.PaymentResponse;
 import com.example.gymmanagement.model.UserResponse;
+import com.example.gymmanagement.request.Request;
 import org.jetbrains.annotations.NotNull;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +110,7 @@ public class ListAdapterPayment extends RecyclerView.Adapter<ListAdapterPayment.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, lastName, stateStatic, paymentState, ci;
+        TextView name, lastName, stateStatic, paymentState, ci,planStatic, plan;
 
         ViewHolder(@NonNull @NotNull View itemView, final ListAdapter.OnItemClickListener listener) {
             super(itemView);
@@ -115,6 +119,8 @@ public class ListAdapterPayment extends RecyclerView.Adapter<ListAdapterPayment.
             stateStatic = itemView.findViewById(R.id.tvStateStatic);
             ci = itemView.findViewById(R.id.tvCI);
             paymentState = itemView.findViewById(R.id.tvPaymentState);
+            planStatic = itemView.findViewById(R.id.tvPlanStatic);
+            plan = itemView.findViewById(R.id.tvPlan);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -133,8 +139,10 @@ public class ListAdapterPayment extends RecyclerView.Adapter<ListAdapterPayment.
 
         void bindData(final PaymentResponse item) {
             //iconImage.setColorFilter(Color.parseColor(item.get));
+            plan.setText(item.getPlan());
             name.setText(item.getName());
             lastName.setText(item.getLastName());
+            ci.setText(item.getUserId().toString());
             if(item.getStatus()==0){
                 paymentState.setText("No pagado");
             }else{

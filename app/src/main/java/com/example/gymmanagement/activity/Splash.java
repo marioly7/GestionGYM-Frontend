@@ -28,13 +28,11 @@ public class Splash extends AppCompatActivity {
         TextView titulo = findViewById(R.id.titulo);
         ImageView logo = findViewById(R.id.ivLogo);
         TextView marioly = findViewById(R.id.tvMarioly);
-        TextView nap = findViewById(R.id.tvNapoleon);
         TextView may = findViewById(R.id.tvMayumi);
 
         titulo.setAnimation(animation2);
         de.setAnimation(animation2);
         marioly.setAnimation(animation2);
-        nap.setAnimation(animation2);
         may.setAnimation(animation2);
         logo.setAnimation(animation);
 
@@ -45,7 +43,7 @@ public class Splash extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 4000);
+        }, 1000);
 
     }
 }

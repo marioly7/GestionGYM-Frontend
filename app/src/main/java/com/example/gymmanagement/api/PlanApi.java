@@ -1,5 +1,6 @@
 package com.example.gymmanagement.api;
 
+import com.example.gymmanagement.model.Activity;
 import com.example.gymmanagement.model.Plan;
 import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
@@ -14,5 +15,8 @@ public interface PlanApi {
 
     @GET("allPlans")
     Call<ArrayList<Plan>> getPlans();
+
+    @GET("activitiesByPlan")
+    Call<ArrayList<Activity>> getActivitiesByPlan(@Query("planId") Integer planId);
 
 }

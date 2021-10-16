@@ -11,6 +11,7 @@
 
 
 
+
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/registerButton"
-            android:text="Registrar Pago"
+            android:text="Registro de Pagos"
             android:layout_marginTop="40dp"
             android:id="@+id/registerPaymentButton"
             android:padding="10dp"
@@ -60,6 +61,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
     ></Button>
+
+
 
 
 

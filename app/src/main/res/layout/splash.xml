@@ -39,10 +39,4 @@
               android:layout_gravity="center"
     ></TextView>
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:text="Napoleon Cuba"
-              android:textSize="22dp"
-              android:id="@+id/tvNapoleon"
-              android:layout_gravity="center"
-    ></TextView>
 </LinearLayout>

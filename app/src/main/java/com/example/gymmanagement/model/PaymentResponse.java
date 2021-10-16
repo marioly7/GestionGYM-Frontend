@@ -6,25 +6,19 @@ public class PaymentResponse {
     private Integer status;
     private String name;
     private String lastName;
+    private String plan;
 
-    public PaymentResponse(Integer paymentId, Integer userId, Integer status, String name, String lastName) {
+    public PaymentResponse(Integer paymentId, Integer userId, Integer status, String name, String lastName, String plan) {
         this.paymentId = paymentId;
         this.userId = userId;
         this.status = status;
         this.name = name;
         this.lastName = lastName;
+        this.plan = plan;
     }
 
     public PaymentResponse() {
 
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public Integer getPaymentId() {
@@ -59,6 +53,22 @@ public class PaymentResponse {
         this.name = name;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPlan() {
+        return plan;
+    }
+
+    public void setPlan(String plan) {
+        this.plan = plan;
+    }
+
     @Override
     public String toString() {
         return "PaymentResponse{" +
@@ -67,6 +77,7 @@ public class PaymentResponse {
                 ", status=" + status +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", plan='" + plan + '\'' +
                 '}';
     }
 }

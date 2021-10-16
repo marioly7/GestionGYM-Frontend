@@ -9,7 +9,7 @@ import com.example.gymmanagement.R;
 
 public class MenuActivityEncargado extends AppCompatActivity {
 
-    Button registerButton;
+    Button registerButton, registerPaymentButton;
     Integer userId, userTypeId;
     Intent intent;
 
@@ -22,6 +22,18 @@ public class MenuActivityEncargado extends AppCompatActivity {
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
 
         registerButton = findViewById(R.id.registerButton);
+
+        registerPaymentButton = findViewById(R.id.registerPaymentButton);
+
+        registerPaymentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(MenuActivityEncargado.this, PaymentActivity.class);
+                intent.putExtra("userId",userId);
+                intent.putExtra("userTypeId",userTypeId);
+                startActivity(intent);
+            }
+        });
 
 
         registerButton.setOnClickListener(new View.OnClickListener() {

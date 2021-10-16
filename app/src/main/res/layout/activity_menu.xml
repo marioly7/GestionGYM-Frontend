@@ -151,7 +151,7 @@
                 android:background="#FFC107"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
         ></Button>
 
         <Button
@@ -167,6 +167,26 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="30dp"
         ></Button>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+    >
+        <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Planes"
+                android:id="@+id/plansButton"
+                android:padding="10dp"
+                android:textColor="#192777"
+                android:textStyle="bold"
+                android:background="#FFC107"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+        ></Button>
+
     </LinearLayout>
 
 

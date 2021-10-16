@@ -29,7 +29,7 @@
                        android:layout_alignParentLeft="true"
                        android:paddingLeft="14dp"
                        android:paddingRight="14dp"
-                       android:src="@drawable/username"
+                       android:src="@drawable/ic_baseline_info_24"
             >
             </ImageView>
 
@@ -46,62 +46,26 @@
                     android:layout_toRightOf="@id/userImage"
             >
                 <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="25dp"
                 >
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="2dp"
-                            android:text="Marioly"
+                            android:text="Estudiantil"
                             android:textSize="24dp"
                             android:textStyle="bold"
                             android:id="@+id/tvName"
-                    ></TextView>
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:text=" "
-                    ></TextView>
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:text=" Vargas"
-                            android:textSize="24dp"
-                            android:textStyle="bold"
-                            android:id="@+id/tvLastName"
                     ></TextView>
                 </LinearLayout>
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="6874845"
-                        android:textSize="24dp"
-                        android:gravity="center_horizontal"
-                        android:id="@+id/tvCI"
-                ></TextView>
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Plan"
-                        android:textSize="24dp"
-                        android:gravity="center_horizontal"
-                        android:textStyle="bold"
-                        android:id="@+id/tvPlanStatic"
-                ></TextView>
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Estudiantil"
-                        android:textSize="24dp"
-                        android:gravity="center_horizontal"
-                        android:id="@+id/tvPlan"
+                        android:text="128.2 Bs"
+                        android:textSize="20dp"
+                        android:id="@+id/tvPrice"
                 ></TextView>
 
             </LinearLayout>
@@ -116,35 +80,19 @@
                     android:layout_marginRight="6dp"
                     android:layout_centerVertical="true"
             >
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Estado:"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:id="@+id/tvStateStatic"
-                >
-                </TextView>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pagado"
-                        android:textSize="20sp"
-                        android:id="@+id/tvPaymentState"
-                >
-                </TextView>
                 <Button
-                        android:id="@+id/payButton"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_marginEnd="6dp"
-                        android:layout_marginRight="6dp"
-                        android:background="@drawable/circle"
-                        android:layout_marginTop="20dp"
-                        android:drawableTop="@drawable/ic_payment_method_pay_svgrepo_com"
-                        android:paddingTop="10dp"
-                        android:textColor="#fff" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Actividades"
+                        android:textSize="17sp"
+                        android:textColor="#ffffff"
+                        android:padding="5dp"
+                        android:background="#2196F3"
+                        android:id="@+id/buttonActivityPlan"
+                >
+                </Button>
+
+
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
