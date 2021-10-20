@@ -40,7 +40,7 @@
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/rvUsers"
-            android:layout_height="681dp" tools:layout_editor_absoluteY="52dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
             tools:ignore="MissingConstraints"/>
 </LinearLayout>

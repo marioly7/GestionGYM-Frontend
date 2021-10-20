@@ -93,7 +93,7 @@ public class Request {
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
         Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("http://192.168.31.150:8085/user/")
+                .baseUrl("http://192.168.31.151:8085/user/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
                 .build();
