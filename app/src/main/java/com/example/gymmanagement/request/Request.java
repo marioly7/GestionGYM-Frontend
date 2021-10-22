@@ -1,6 +1,7 @@
 package com.example.gymmanagement.request;
 
 import com.example.gymmanagement.Parametros;
+import com.example.gymmanagement.api.ActivityApi;
 import com.example.gymmanagement.api.PaymentApi;
 import com.example.gymmanagement.api.PlanApi;
 import com.example.gymmanagement.api.UserApi;
@@ -124,7 +125,7 @@ public class Request {
         return call;
     }
 
-    public Call<Integer> getId(String email, String password){
+    public Call<User> getId(String email, String password){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
@@ -136,7 +137,7 @@ public class Request {
                 .build();
         final UserApi userApi = retrofit.create(UserApi.class);
 
-        Call<Integer> call = userApi.getId(email, password);
+        Call<User> call = userApi.getId(email, password);
 
         return call;
     }
@@ -279,6 +280,23 @@ public class Request {
         final UserApi userApi= retrofit.create(UserApi.class);
 
         Call<Integer> call = userApi.getUserType(userId);
+
+        return call;
+    }
+
+    public Call<ArrayList<ActivityResponse>> getActivityDetails(Integer activityId){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "activity/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        final ActivityApi activityApi= retrofit.create(ActivityApi.class);
+
+        Call<ArrayList<ActivityResponse>> call = activityApi.getActivityDetails(activityId);
 
         return call;
     }

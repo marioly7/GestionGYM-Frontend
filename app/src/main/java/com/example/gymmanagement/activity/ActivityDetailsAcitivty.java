@@ -1,20 +1,20 @@
 package com.example.gymmanagement.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.gymmanagement.R;
 import com.example.gymmanagement.adapter.ListAdapter;
 import com.example.gymmanagement.adapter.ListAdapterActivity;
-import com.example.gymmanagement.adapter.ListAdapterPlan;
+import com.example.gymmanagement.adapter.ListAdapterActivityDetails;
 import com.example.gymmanagement.model.Activity;
-import com.example.gymmanagement.model.Plan;
+import com.example.gymmanagement.model.ActivityResponse;
 import com.example.gymmanagement.request.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,37 +23,43 @@ import retrofit2.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivitiesActivity extends AppCompatActivity {
+public class ActivityDetailsAcitivty extends AppCompatActivity {
 
-    List<Activity> activityList = new ArrayList<>();
-    List<Activity> activityOriginalList = new ArrayList<>();
-    ListAdapterActivity listAdapter;
+    List<ActivityResponse> activityList = new ArrayList<>();
+    List<ActivityResponse> activityOriginalList = new ArrayList<>();
+    ListAdapterActivityDetails listAdapter;
     RecyclerView recyclerView;
     Request request = new Request();
     SearchView searchPlan;
-    Integer userId, userTypeId, planId;
-    TextView tvName, tvPrice;
+    Integer userId, userTypeId, activityId;
+    TextView tvName, tvPrice, title;
     Button actividades;
+    String activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activities);
+        setContentView(R.layout.activity_activity_details);
 
         userId = getIntent().getIntExtra("userId", 0);
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
-        planId = getIntent().getIntExtra("planId", 0);
+        activityId = getIntent().getIntExtra("activityId", 0);
+        activity = getIntent().getStringExtra("activity");
 
+        title = findViewById(R.id.textViewActivityDetails);
         tvName = findViewById(R.id.tvName);
         tvPrice = findViewById(R.id.tvPrice);
         actividades = findViewById(R.id.buttonActivityPlan);
 
-        recyclerView = findViewById(R.id.rvPlans);
+
+        recyclerView = findViewById(R.id.rvAcitivityDetails);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(ActivitiesActivity.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(ActivityDetailsAcitivty.this));
         recyclerView.setAdapter(listAdapter);
 
-        searchPlan = findViewById(R.id.searchPlan);
+        searchPlan = findViewById(R.id.searchActivityDetails);
+
+        title.setText("Detalles "+activity);
 
         searchPlan.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -72,12 +78,12 @@ public class ActivitiesActivity extends AppCompatActivity {
     }
 
     public void getActivityListFromRestAPI(){
-        request.getAllActivities(planId).enqueue(new Callback<ArrayList<Activity>>() {
+        request.getActivityDetails(activityId).enqueue(new Callback<ArrayList<ActivityResponse>>() {
             @Override
-            public void onResponse(Call<ArrayList<Activity>> call, Response<ArrayList<Activity>> response) {
+            public void onResponse(Call<ArrayList<ActivityResponse>> call, Response<ArrayList<ActivityResponse>> response) {
                 if (!response.isSuccessful()) {
                     //textViewResult.setText("Code: " + response.code());
-                    Activity cr = new Activity();
+                    ActivityResponse cr = new ActivityResponse();
                     //cr.setUserName("Code: "+response.code());
                     activityList.add(cr);
                     activityOriginalList.add(cr);
@@ -85,7 +91,7 @@ public class ActivitiesActivity extends AppCompatActivity {
                     return;
                 }
                 activityList = response.body();
-                listAdapter=new ListAdapterActivity(activityList,ActivitiesActivity.this);
+                listAdapter=new ListAdapterActivityDetails(activityList, ActivityDetailsAcitivty.this);
                 recyclerView.setAdapter(listAdapter);
 
 
@@ -93,14 +99,9 @@ public class ActivitiesActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(int position) {
                         activityOriginalList = listAdapter.getCurrentList();
-                        Integer activityId = activityOriginalList.get(position).getActivityId();
-                        String activity = activityOriginalList.get(position).getActivity();
-                        Intent intent = new Intent (ActivitiesActivity.this, ActivityDetailsAcitivty.class);
+                        Intent intent = new Intent (ActivityDetailsAcitivty.this, EditUser.class);
                         intent.putExtra("userId",userId);
                         intent.putExtra("userTypeId",userTypeId);
-                        intent.putExtra("planId",planId);
-                        intent.putExtra("activityId",activityId);
-                        intent.putExtra("activity",activity);
                         startActivity(intent);
                     }
                 });
@@ -109,11 +110,11 @@ public class ActivitiesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Activity>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<ActivityResponse>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Error onFailure", Toast.LENGTH_SHORT).show();
             }
         });
-        listAdapter=new ListAdapterActivity(activityList,ActivitiesActivity.this);
+        listAdapter=new ListAdapterActivityDetails(activityList, ActivityDetailsAcitivty.this);
         recyclerView.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
     }

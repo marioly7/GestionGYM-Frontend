@@ -24,7 +24,7 @@ public interface UserApi {
     Call<UserResponse> getUserById(@Query("userId") Integer userId);
 
     @GET("login")
-    Call<Integer> getId(@Query("email") String email, @Query("password") String password);
+    Call<User> getId(@Query("email") String email, @Query("password") String password);
 
     @POST("addUser")
     Call<User> createUser(@Body User user);

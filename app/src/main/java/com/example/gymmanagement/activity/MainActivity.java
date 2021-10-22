@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.gymmanagement.R;
 import com.example.gymmanagement.api.UserApi;
+import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.request.Request;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -26,11 +27,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button loginButton;
     TextView customerService;
-    Integer passwordCounter=1, userId, userTypeId;
+    Integer passwordCounter=1, userId, userTypeId,planId;
     private EditText etEmail;
     private EditText etPassword;
     Intent intent;
     Request request = new Request();
+    User userReturned;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,19 +60,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 } else {
 
-                    request.getId(etEmail.getText().toString(), etPassword.getText().toString()).enqueue(new Callback<Integer>() {
+                    request.getId(etEmail.getText().toString(), etPassword.getText().toString()).enqueue(new Callback<User>() {
                                      @Override
-                                     public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                     public void onResponse(Call<User> call, Response<User> response) {
                                          if (!response.isSuccessful()) {
                                              etEmail.setText("Code userId: " + response.code());
                                              return;
                                          }
-                                         userId = response.body();
+                                         userReturned = response.body();
+                                         userId = userReturned.getIdUser();
                                          userTypeForMenu(userId);
                                      }
 
                                      @Override
-                                     public void onFailure(Call<Integer> call, Throwable t) {
+                                     public void onFailure(Call<User> call, Throwable t) {
                                          //etEmail.setText("userId "+t.getMessage());
                                          etEmail.setText("");
                                          etPassword.setText("");
@@ -102,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void userTypeForMenu(final Integer userId) {
 
+        planId = userReturned.getPlanId();
 
         request.getUserType(userId).enqueue(new Callback<Integer>() {
                          @Override
@@ -121,10 +125,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                  case 2:
                                      intent = new Intent(MainActivity.this, MenuActivityEncargado.class);
                                      break;
+                                 case 3:
+                                     intent = new Intent(MainActivity.this, UserMenuActivity.class);
+                                     break;
+
                              }
 
                              intent.putExtra("userId",userId);
                              intent.putExtra("userTypeId", userTypeId);
+                             intent.putExtra("planId",planId);
                              startActivity(intent);
 
                          }
