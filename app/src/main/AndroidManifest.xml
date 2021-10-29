@@ -12,6 +12,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".activity.PaymentReportActivity">
+        </activity>
+        <activity android:name=".activity.UserActivities">
+        </activity>
         <activity android:name=".activity.UserMenuActivity">
         </activity>
         <activity android:name=".activity.ActivitiesActivity">
@@ -37,6 +41,8 @@
         <activity android:name=".activity.PieChartPlans">
         </activity>
         <activity android:name=".activity.BarChartPlans">
+        </activity>
+        <activity android:name=".activity.RegisterActivityUser">
         </activity>
         <activity android:name=".activity.ChartsMenu">
         </activity>

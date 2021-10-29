@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button loginButton;
+    Button loginButton, signUpButton;
     TextView customerService;
     Integer passwordCounter=1, userId, userTypeId,planId;
     private EditText etEmail;
@@ -50,6 +50,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         customerService.setText(content);
 
         loginButton = findViewById(R.id.loginbutton);
+        signUpButton = findViewById(R.id.signUpButton);
+
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, RegisterActivityUser.class);
+                startActivity(intent);
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

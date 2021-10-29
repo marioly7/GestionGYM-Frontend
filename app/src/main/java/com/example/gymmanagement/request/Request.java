@@ -34,6 +34,24 @@ public class Request {
         return call;
     }
 
+    public Call<PaymentReportResponse> getPaymentReport(){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "payment/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+
+
+        PaymentApi paymentApi = retrofit.create(PaymentApi.class);
+        Call<PaymentReportResponse> call = paymentApi.getPaymentReport();
+
+        return call;
+    }
+
     public Call<ArrayList<Activity>> getAllActivities(Integer planId){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
@@ -138,6 +156,30 @@ public class Request {
         final UserApi userApi = retrofit.create(UserApi.class);
 
         Call<User> call = userApi.getId(email, password);
+
+        return call;
+    }
+
+    public Call<UserActivity> activityRegister(Integer userId, Integer activityId){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                //.baseUrl("https://jsonplaceholder.typicode.com/")
+                .baseUrl(Parametros.HOST + "activity/")
+                //.baseUrl("http://192.168.31.148:8081/v1/user/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        ActivityApi activityApi= retrofit.create(ActivityApi.class);
+
+
+        UserActivity user = new UserActivity();
+        user.setUserId(userId);
+        user.setActivityId(activityId);
+
+        Call<UserActivity> call = activityApi.activityRegister(user);
 
         return call;
     }
@@ -284,6 +326,41 @@ public class Request {
         return call;
     }
 
+    public Call<ActivityResponse> activityScheduleById(Integer activityId){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "activity/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        final ActivityApi activityApi= retrofit.create(ActivityApi.class);
+
+        Call<ActivityResponse> call = activityApi.activityScheduleById(activityId);
+
+        return call;
+    }
+
+    public Call<ArrayList<ActivityResponse>> getActivitiesByUserId(Integer userId){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "activity/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        final ActivityApi activityApi= retrofit.create(ActivityApi.class);
+
+        Call<ArrayList<ActivityResponse>> call = activityApi.activitiesByUserId(userId);
+
+        return call;
+    }
+
+
     public Call<ArrayList<ActivityResponse>> getActivityDetails(Integer activityId){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
@@ -366,6 +443,28 @@ public class Request {
         payment.setUserId(userId);
 
         Call<Payment> call = paymentApi.addPayment(payment);
+
+        return call;
+    }
+
+    public Call<Payment> addPaymentCard(Integer userId){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                //.baseUrl("https://jsonplaceholder.typicode.com/")
+                .baseUrl(Parametros.HOST + "payment/")
+                //.baseUrl("http://192.168.31.148:8081/v1/user/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        PaymentApi paymentApi= retrofit.create(PaymentApi.class);
+
+        Payment payment = new Payment();
+        payment.setUserId(userId);
+
+        Call<Payment> call = paymentApi.addPaymentCard(payment);
 
         return call;
     }

@@ -1,5 +1,7 @@
 package com.example.gymmanagement.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import com.example.gymmanagement.adapter.ListAdapterActivity;
 import com.example.gymmanagement.adapter.ListAdapterActivityDetails;
 import com.example.gymmanagement.model.Activity;
 import com.example.gymmanagement.model.ActivityResponse;
+import com.example.gymmanagement.model.UserActivity;
 import com.example.gymmanagement.request.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +34,7 @@ public class ActivityDetailsAcitivty extends AppCompatActivity {
     RecyclerView recyclerView;
     Request request = new Request();
     SearchView searchPlan;
-    Integer userId, userTypeId, activityId;
+    Integer userId, userTypeId, activityId,planId;
     TextView tvName, tvPrice, title;
     Button actividades;
     String activity;
@@ -44,6 +47,7 @@ public class ActivityDetailsAcitivty extends AppCompatActivity {
         userId = getIntent().getIntExtra("userId", 0);
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
         activityId = getIntent().getIntExtra("activityId", 0);
+        planId = getIntent().getIntExtra("planId",0);
         activity = getIntent().getStringExtra("activity");
 
         title = findViewById(R.id.textViewActivityDetails);
@@ -99,10 +103,8 @@ public class ActivityDetailsAcitivty extends AppCompatActivity {
                     @Override
                     public void onItemClick(int position) {
                         activityOriginalList = listAdapter.getCurrentList();
-                        Intent intent = new Intent (ActivityDetailsAcitivty.this, EditUser.class);
-                        intent.putExtra("userId",userId);
-                        intent.putExtra("userTypeId",userTypeId);
-                        startActivity(intent);
+                        Integer activityScheduleId = activityOriginalList.get(position).getActivityScheduleId();
+                        getEspaciosDisponibles(activityScheduleId);
                     }
                 });
 
@@ -117,5 +119,83 @@ public class ActivityDetailsAcitivty extends AppCompatActivity {
         listAdapter=new ListAdapterActivityDetails(activityList, ActivityDetailsAcitivty.this);
         recyclerView.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
+    }
+
+    private void getEspaciosDisponibles(Integer activityScheduleId) {
+        final ActivityResponse[] activityResponse = {new ActivityResponse()};
+        request.activityScheduleById(activityScheduleId).enqueue(new Callback<ActivityResponse>() {
+            @Override
+            public void onResponse(Call<ActivityResponse> call, Response<ActivityResponse> response) {
+                if (!response.isSuccessful()) {
+                    //textViewResult.setText("Code: " + response.code());
+                    //cr.setUserName("Code: "+response.code());
+                    Toast.makeText(getApplicationContext(), "onResponse is not successful", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                activityResponse[0] = response.body();
+                if(activityResponse[0].getCapacity()>0){
+                    alertDialog(activityScheduleId);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Lo sentimos, ya no hay espacios disponibles para esta actividad", Toast.LENGTH_SHORT).show();
+                }
+                //userList.add(new UserResponse(userList.get(i).getIdUser(),userList.get(i).getUserName(),userList.get(i).getLastName(),userList.get(i).getEmail(),userList.get(i).getPassword(),userList.get(i).getUserType(),userList.get(i).getPlan()));
+            }
+
+            @Override
+            public void onFailure(Call<ActivityResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error onFailure", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
+    private void alertDialog(Integer activityScheduleId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityDetailsAcitivty.this);
+        builder.setTitle("Confirmación de inscripcion");
+        builder.setMessage("Está por inscribirse a "+activity);
+
+        builder.setPositiveButton("CONFIRMAR", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        registerUserInActivity(activityScheduleId);
+                    }
+                })
+                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // CANCEL
+                        Toast.makeText(getApplicationContext(), "No se registró la inscripcion", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void registerUserInActivity(Integer activityScheduleId) {
+        System.out.println("user Id"+userId);
+        System.out.println("activityShceduelid "+activityScheduleId);
+        request.activityRegister(userId,activityScheduleId).enqueue(new Callback<UserActivity>() {
+            @Override
+            public void onResponse(Call<UserActivity> call, Response<UserActivity> response) {
+                if (!response.isSuccessful()) {
+                    //textViewResult.setText("Code: " + response.code());
+                    //cr.setUserName("Code: "+response.code());
+                    Toast.makeText(getApplicationContext(), "onResponse is not successful", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Toast.makeText(getApplicationContext(), "Usted ha sido inscrito correctamente a "+activity+"!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ActivityDetailsAcitivty.this, ActivitiesActivity.class);
+                intent.putExtra("userId",userId);
+                intent.putExtra("userTypeId",userTypeId);
+                intent.putExtra("planId",planId);
+                startActivity(intent);
+            }
+
+
+            @Override
+            public void onFailure(Call<UserActivity> call, Throwable t) {
+
+            }
+        });
+
     }
 }

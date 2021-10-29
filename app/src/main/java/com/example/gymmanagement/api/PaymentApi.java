@@ -1,9 +1,6 @@
 package com.example.gymmanagement.api;
 
-import com.example.gymmanagement.model.Payment;
-import com.example.gymmanagement.model.PaymentResponse;
-import com.example.gymmanagement.model.User;
-import com.example.gymmanagement.model.UserResponse;
+import com.example.gymmanagement.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -18,8 +15,14 @@ public interface PaymentApi {
     @POST("addPayment")
     Call<Payment> addPayment(@Body Payment payment);
 
+    @POST("addPaymentCard")
+    Call<Payment> addPaymentCard(@Body Payment payment);
+
     @GET("paymentByUserId")
     Call<Integer> getPaymentByUserId(@Query("userId") Integer userId);
+
+    @GET("paymentReport")
+    Call<PaymentReportResponse> getPaymentReport();
 
     @PUT("updatePayment")
     Call<Payment> updatePayment(@Body Payment payment);

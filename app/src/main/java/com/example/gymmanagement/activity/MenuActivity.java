@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MenuActivity extends AppCompatActivity {
 
-    Button registerButton, paymentButton, usersButton, graficosButton, planesButton;
+    Button registerButton, paymentButton, usersButton, graficosButton, planesButton, reportePagosButton;
     Integer userId, userTypeId;
     Intent intent;
     Button userDisabledButton;
@@ -36,6 +36,17 @@ public class MenuActivity extends AppCompatActivity {
         graficosButton = findViewById(R.id.graficosButton);
         userDisabledButton = findViewById(R.id.userDisabledButton);
         planesButton = findViewById(R.id.plansButton);
+        reportePagosButton = findViewById(R.id.reportePagosButton);
+
+        reportePagosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(MenuActivity.this, PaymentReportActivity.class);
+                intent.putExtra("userId",userId);
+                intent.putExtra("userTypeId",userTypeId);
+                startActivity(intent);
+            }
+        });
 
         planesButton.setOnClickListener(new View.OnClickListener() {
             @Override
