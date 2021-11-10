@@ -86,15 +86,15 @@ public class ActivityDetailsAcitivty extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<ActivityResponse>> call, Response<ArrayList<ActivityResponse>> response) {
                 if (!response.isSuccessful()) {
-                    //textViewResult.setText("Code: " + response.code());
-                    ActivityResponse cr = new ActivityResponse();
-                    //cr.setUserName("Code: "+response.code());
-                    activityList.add(cr);
-                    activityOriginalList.add(cr);
                     Toast.makeText(getApplicationContext(), "onResponse is not successful", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 activityList = response.body();
+                for(int i=0; i<activityList.size();i++){
+                    if(activityList.get(i).getCapacity()<=0){
+                        activityList.remove(i);
+                    }
+                }
                 listAdapter=new ListAdapterActivityDetails(activityList, ActivityDetailsAcitivty.this);
                 recyclerView.setAdapter(listAdapter);
 
