@@ -105,8 +105,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intent = new Intent(MenuActivity.this, PaymentActivity.class);
-//                intent.putExtra("userId",userId);
-//                intent.putExtra("userTypeId",userTypeId);
+               intent.putExtra("userId",userId);
+               intent.putExtra("userTypeId",userTypeId);
                 startActivity(intent);
                 Log.d("Payment", "payment ...");
             }

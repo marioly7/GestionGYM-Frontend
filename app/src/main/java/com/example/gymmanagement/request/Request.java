@@ -215,6 +215,7 @@ public class Request {
         return call;
     }
 
+
     public Call<User> updateUser(Integer ci, Integer userType, String userName, String lastName, String email, String password, Integer regitrantId, Integer planId){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
@@ -307,6 +308,28 @@ public class Request {
         Call<User> call = userApi.disableUser(user);
 
         return call;
+    }
+
+    public Call<Integer> updateCancelar(Integer userId, Integer activityId){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "activity/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        final ActivityApi activityApi= retrofit.create(ActivityApi.class);
+
+        UserActivity userActivity = new UserActivity();
+        userActivity.setActivityId(activityId);
+        userActivity.setUserId(userId);
+
+        Call<Integer> call = activityApi.updateCancelar(userActivity);
+
+        return call;
+
     }
 
     public Call<Integer> getUserType(Integer userId){

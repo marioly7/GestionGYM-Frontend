@@ -1,9 +1,6 @@
 package com.example.gymmanagement.api;
 
-import com.example.gymmanagement.model.Activity;
-import com.example.gymmanagement.model.ActivityResponse;
-import com.example.gymmanagement.model.Plan;
-import com.example.gymmanagement.model.UserActivity;
+import com.example.gymmanagement.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -24,5 +21,8 @@ public interface ActivityApi {
 
     @GET("activityDetails")
     Call<ArrayList<ActivityResponse>> getActivityDetails(@Query("activityId") Integer activityId);
+
+    @PUT("cancelActivity")
+    Call<Integer> updateCancelar(@Body UserActivity user);
 
 }

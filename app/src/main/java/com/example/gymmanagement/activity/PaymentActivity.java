@@ -93,6 +93,8 @@ public class PaymentActivity extends AppCompatActivity {
                     return;
                 }
 
+                System.out.println("type: "+userTypeId.toString());
+
                 Intent intent;
                 if(userTypeId==1){
                     intent = new Intent (PaymentActivity.this, MenuActivity.class);
