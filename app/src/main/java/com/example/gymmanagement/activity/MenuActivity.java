@@ -20,7 +20,7 @@ public class MenuActivity extends AppCompatActivity {
     Button registerButton, paymentButton, usersButton, graficosButton, planesButton, reportePagosButton;
     Integer userId, userTypeId;
     Intent intent;
-    Button userDisabledButton;
+    Button userDisabledButton, pagos;
     List<UserResponse> userList;
 
     @Override
@@ -31,12 +31,23 @@ public class MenuActivity extends AppCompatActivity {
         userId = getIntent().getIntExtra("userId", 0);
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
 
+        pagos = findViewById(R.id.miCartera);
         registerButton = findViewById(R.id.registerButton);
         paymentButton = findViewById(R.id.paymentButton);
         graficosButton = findViewById(R.id.graficosButton);
         userDisabledButton = findViewById(R.id.userDisabledButton);
         planesButton = findViewById(R.id.plansButton);
         reportePagosButton = findViewById(R.id.reportePagosButton);
+
+
+        pagos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuActivity.this, PaymentUser.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+            }
+        });
 
         reportePagosButton.setOnClickListener(new View.OnClickListener() {
             @Override

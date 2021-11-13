@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.gymmanagement.R;
+import com.example.gymmanagement.model.PaymentDetails;
 import com.example.gymmanagement.model.User;
 import com.example.gymmanagement.model.UserResponse;
 import com.example.gymmanagement.request.Request;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 public class UserMenuActivity extends AppCompatActivity {
 
-    Button plans, horarios;
+    Button plans, horarios, pagos;
     Integer userId,userTypeId,planId;
     Request request = new Request();
     Integer status;
@@ -32,8 +33,18 @@ public class UserMenuActivity extends AppCompatActivity {
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
         planId = getIntent().getIntExtra("planId",0);
 
+        pagos = findViewById(R.id.miCartera);
         plans = findViewById(R.id.plansButton);
         horarios = findViewById(R.id.misHorariosButton);
+
+        pagos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserMenuActivity.this, PaymentUser.class);
+                intent.putExtra("userId",userId);
+                startActivity(intent);
+            }
+        });
 
         horarios.setOnClickListener(new View.OnClickListener() {
             @Override

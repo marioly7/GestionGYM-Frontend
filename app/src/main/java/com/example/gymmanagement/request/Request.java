@@ -112,7 +112,7 @@ public class Request {
         OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
         Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("http://192.168.31.151:8085/user/")
+                .baseUrl("http://192.168.31.151:8089/user/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
                 .build();
@@ -414,6 +414,23 @@ public class Request {
         final PaymentApi paymentApi= retrofit.create(PaymentApi.class);
 
         Call<Integer> call = paymentApi.getPaymentByUserId(userId);
+
+        return call;
+    }
+
+    public Call<PaymentDetails> getPaymentByUserIdDetails(Integer userId){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Parametros.HOST + "payment/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient)
+                .build();
+        final PaymentApi paymentApi= retrofit.create(PaymentApi.class);
+
+        Call<PaymentDetails> call = paymentApi.getPaymentByUserIdDetails(userId);
 
         return call;
     }

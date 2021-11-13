@@ -42,6 +42,8 @@
         </activity>
         <activity android:name=".activity.BarChartPlans">
         </activity>
+        <activity android:name=".activity.PaymentUser">
+        </activity>
         <activity android:name=".activity.RegisterActivityUser">
         </activity>
         <activity android:name=".activity.ChartsMenu">

@@ -28,12 +28,10 @@ public class Splash extends AppCompatActivity {
         TextView titulo = findViewById(R.id.titulo);
         ImageView logo = findViewById(R.id.ivLogo);
         TextView marioly = findViewById(R.id.tvMarioly);
-        TextView may = findViewById(R.id.tvMayumi);
 
         titulo.setAnimation(animation2);
         de.setAnimation(animation2);
         marioly.setAnimation(animation2);
-        may.setAnimation(animation2);
         logo.setAnimation(animation);
 
         new Handler().postDelayed(new Runnable() {

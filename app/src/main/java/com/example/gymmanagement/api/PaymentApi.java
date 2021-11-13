@@ -21,6 +21,9 @@ public interface PaymentApi {
     @GET("paymentByUserId")
     Call<Integer> getPaymentByUserId(@Query("userId") Integer userId);
 
+    @GET("paymentByUserIdDetails")
+    Call<PaymentDetails> getPaymentByUserIdDetails(@Query("userId") Integer userId);
+
     @GET("paymentReport")
     Call<PaymentReportResponse> getPaymentReport();
 

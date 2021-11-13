@@ -3,13 +3,13 @@ package com.example.gymmanagement.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import com.example.gymmanagement.R;
 import com.example.gymmanagement.model.Plan;
 import com.example.gymmanagement.model.User;
@@ -22,15 +22,15 @@ import retrofit2.Response;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class EditUser extends AppCompatActivity {
+public class EditUserByUser extends AppCompatActivity {
 
     EditText etCI, etName, etLastName, etEmail, etPassword, etConfirmPassword;
     UserResponse users = new UserResponse();
     Button saveButton, disableButton, enableButton;
     ArrayList<UserResponse> usersa;
     ArrayList<Plan> plans;
-    RadioGroup radioPlans;
     RadioButton rdbtn;
+    RadioGroup radioPlans;
     Integer userType, planId;
     Integer flag=0, flagCI=0;
     RadioButton admi, enc, cli;
@@ -40,7 +40,7 @@ public class EditUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_user);
+        setContentView(R.layout.activity_edit_user_byuser);
 
         userId = getIntent().getIntExtra("userId", 0);
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
@@ -55,22 +55,14 @@ public class EditUser extends AppCompatActivity {
         enableButton = findViewById(R.id.enableButton);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
-        admi = findViewById(R.id.radioAdmi);
-        cli = findViewById(R.id.radioCli);
-        enc = findViewById(R.id.radioEnc);
         radioPlans = findViewById(R.id.radioPlans);
-
         getPlans();
 
         radioPlans.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton radioButton = (RadioButton) findViewById(i);
-                if(radioButton.getText()!="Ninguno"){
-                    planId = radioButton.getId();
-                }else{
-                    planId = null;
-                }
+                planId = radioButton.getId();
                 //Toast.makeText(getApplicationContext(),radioButton.getText(),Toast.LENGTH_LONG).show();
             }
         });
@@ -89,7 +81,7 @@ public class EditUser extends AppCompatActivity {
                         }
 
                         Toast.makeText(getApplicationContext(), "Usuario habilitado exitosamente", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent (EditUser.this, UserManagament.class);
+                        Intent intent = new Intent (EditUserByUser.this, UserManagament.class);
                         intent.putExtra("userId",userId);
                         intent.putExtra("userTypeId",userTypeId);
                         startActivity(intent);
@@ -117,7 +109,7 @@ public class EditUser extends AppCompatActivity {
                         }
 
                         Toast.makeText(getApplicationContext(), "Usuario deshabilitado exitosamente", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent (EditUser.this, UserManagament.class);
+                        Intent intent = new Intent (EditUserByUser.this, UserManagament.class);
                         intent.putExtra("userId",userId);
                         intent.putExtra("userTypeId",userTypeId);
                         startActivity(intent);
@@ -208,10 +200,13 @@ public class EditUser extends AppCompatActivity {
                 } else if (etPassword.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(), "Debes ingresar una contraseña", Toast.LENGTH_SHORT).show();
                     return;
+                }else if (!admi.isChecked() && !cli.isChecked() && !enc.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "Debe seleccionar un tipo de usuario", Toast.LENGTH_SHORT).show();
+                    return;
                 }else {
                     if (validateEmail(etEmail.getText().toString())) {
                         //Toast.makeText(RegisterActivity.this, "valida correo", Toast.LENGTH_SHORT).show();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(EditUser.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(EditUserByUser.this);
                         builder.setMessage("Guardar cambios?")
                                 .setTitle("Confirmación de almacenamiento")
                                 .setPositiveButton("GUARDAR", new DialogInterface.OnClickListener() {
@@ -253,6 +248,8 @@ public class EditUser extends AppCompatActivity {
 
                 System.out.println("plan "+users.getPlan());
 
+                Integer flagplan = 0, i=0;
+
             }
 
 
@@ -288,7 +285,7 @@ public class EditUser extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (!response.isSuccessful()) {
                     Log.d("code","Code: " + response.code());
-                    Toast.makeText(EditUser.this,"Respponse: "+response.code(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditUserByUser.this,"Respponse: "+response.code(),Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -300,7 +297,7 @@ public class EditUser extends AppCompatActivity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("code failure","Code: " + t.getMessage());
-                Toast.makeText(EditUser.this,"Failure: "+t.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditUserByUser.this,"Failure: "+t.getMessage(),Toast.LENGTH_SHORT).show();
                 return;
             }
         });
@@ -311,7 +308,7 @@ public class EditUser extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 // acciones que se ejecutan tras los milisegundos
-                Intent intent = new Intent (EditUser.this, UserManagament.class);
+                Intent intent = new Intent (EditUserByUser.this, UserManagament.class);
                 startActivity(intent);
             }
         }, 1000);
@@ -321,7 +318,7 @@ public class EditUser extends AppCompatActivity {
         radioPlans.setOrientation(LinearLayout.VERTICAL);
         //
         for(int i=0; i<plans.size();i++) {
-            rdbtn = new RadioButton(EditUser.this);
+            rdbtn = new RadioButton(EditUserByUser.this);
             rdbtn.setId(View.generateViewId());
             //System.out.println("id "+rdbtn.getId());
             rdbtn.setText(plans.get(i).getPlan());
@@ -331,7 +328,7 @@ public class EditUser extends AppCompatActivity {
             radioPlans.addView(rdbtn);
         }
 
-        rdbtn = new RadioButton(EditUser.this);
+        rdbtn = new RadioButton(EditUserByUser.this);
         rdbtn.setId(View.generateViewId());
         rdbtn.setText("Ninguno");
         rdbtn.setTextSize(22);
@@ -365,4 +362,5 @@ public class EditUser extends AppCompatActivity {
             }
         });
     }
+
 }

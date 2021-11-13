@@ -205,52 +205,6 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="10dp"
                         android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:text="Tipo de Usuario"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                ></TextView>
-
-                <RadioGroup
-                        android:id="@+id/radioType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    <RadioButton
-                            android:id="@+id/radioAdmi"
-                            android:layout_width="match_parent"
-                            android:textSize="20dp"
-                            android:buttonTint="#4B4DC6"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="15dp"
-                            android:paddingTop="15dp"
-                            android:text="Administrador"/>
-
-                    <RadioButton
-                            android:id="@+id/radioEnc"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="15dp"
-                            android:textSize="20dp"
-                            android:buttonTint="#4B4DC6"
-                            android:paddingTop="15dp"
-                            android:text="Encargado"/>
-
-                    <RadioButton
-                            android:id="@+id/radioCli"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="15dp"
-                            android:textSize="20dp"
-                            android:buttonTint="#4B4DC6"
-                            android:paddingTop="15dp"
-                            android:text="Cliente"/>
-
-                </RadioGroup>
-
-                <TextView
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:text="Plan"
                         android:textStyle="bold"
                         android:textSize="20dp"
@@ -262,6 +216,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="50dp"
                 >
+
                 </RadioGroup>
 
                 <LinearLayout

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:background="#DC09375C"
+        android:orientation="vertical"
         tools:context=".activity.MenuActivity">
 
 
@@ -25,6 +26,7 @@
             android:longClickable="true"
             android:textStyle="italic"
             android:textColor="#FFC107"
+            android:layout_gravity="center"
             android:layout_centerHorizontal="true"
             android:scrollbars = "vertical"/>
 
@@ -62,9 +64,65 @@
             android:layout_marginRight="20dp"
     ></Button>
 
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestion de Usuarios"
+            android:id="@+id/usersButton"
+            android:textColor="#192777"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:background="#FFC107"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+    ></Button>
+
+    <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Usuarios Deshablitados"
+            android:id="@+id/userDisabledButton"
+            android:padding="10dp"
+            android:textColor="#192777"
+            android:textStyle="bold"
+            android:background="#FFC107"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+    ></Button>
+
+    <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Mi Cartera"
+            android:id="@+id/miCartera"
+            android:padding="10dp"
+            android:textColor="#192777"
+            android:textStyle="bold"
+            android:background="#FFC107"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+    ></Button>
+
+    <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Cerrar Sesion"
+            android:id="@+id/cerrarSesion"
+            android:padding="10dp"
+            android:textColor="#192777"
+            android:textStyle="bold"
+            android:background="#FFC107"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+    ></Button>
 
 
-
-
-
-</RelativeLayout>
+</LinearLayout>

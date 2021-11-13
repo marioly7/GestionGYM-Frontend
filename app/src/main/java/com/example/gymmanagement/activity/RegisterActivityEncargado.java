@@ -31,7 +31,7 @@ public class RegisterActivityEncargado extends AppCompatActivity{
     ArrayList<UserResponse> users;
     Button registerButton;
     Integer userType, planId;
-    Integer flag=0;
+    Integer flag=0, flagCI=0;
     ArrayList<Plan> plans;
     RadioButton premium, gold;
     RadioButton cli;
@@ -56,8 +56,6 @@ public class RegisterActivityEncargado extends AppCompatActivity{
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         registerButton = findViewById(R.id.registerEmpButton);
         cli = findViewById(R.id.radioCli);
-        premium = findViewById(R.id.radioPremium);
-        gold = findViewById(R.id.radioGold);
         radioPlans = findViewById(R.id.radioPlans);
 
         getPlans();
@@ -74,11 +72,13 @@ public class RegisterActivityEncargado extends AppCompatActivity{
                 users = response.body();
             }
 
+
             @Override
             public void onFailure(Call<ArrayList<UserResponse>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Error onFailure", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         radioPlans.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -107,6 +107,17 @@ public class RegisterActivityEncargado extends AppCompatActivity{
                     }
                 }
 
+                for (int i=0; i<users.size() ; i++)
+                {
+                    if((etEmail.getText().toString()).equals(users.get(i).getIdUser()))
+                    {
+                        flagCI=1;
+                    }
+                    if (flagCI==1){
+                        break;
+                    }
+                }
+
 
                 if(!(etPassword.getText().toString()).equals(etConfirmPassword.getText().toString())){
                     Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
@@ -116,7 +127,12 @@ public class RegisterActivityEncargado extends AppCompatActivity{
                     flag=0;
                     Toast.makeText(getApplicationContext(), "El correo: "+etEmail.getText().toString()+" ya pertenece a una cuenta", Toast.LENGTH_SHORT).show();
                     return;
-                }else if (etName.getText().toString().isEmpty()) {
+                }else if(flagCI==1){
+                    flagCI=0;
+                    Toast.makeText(getApplicationContext(), "El CI: "+etCi.getText().toString()+" ya pertenece a una cuenta", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (etName.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Debe ingresar un nombre", Toast.LENGTH_SHORT).show();
                     return;
                 }else if (etCi.getText().toString().isEmpty()) {
@@ -150,7 +166,7 @@ public class RegisterActivityEncargado extends AppCompatActivity{
         //Toast.makeText(RegisterActivity.this,"entra a create user",Toast.LENGTH_SHORT).show();
 
 
-        userType = 1;
+        userType = 3;
 
 
 
@@ -167,7 +183,7 @@ public class RegisterActivityEncargado extends AppCompatActivity{
                         @Override
                         public void onResponse(Call<Payment> call, Response<Payment> response) {
                             Log.d("code","Code: " + response.code());
-                            Toast.makeText(RegisterActivityEncargado.this,"Respponse: "+response.code(),Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(RegisterActivityEncargado.this,"Respponse: "+response.code(),Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -177,6 +193,7 @@ public class RegisterActivityEncargado extends AppCompatActivity{
                         }
                     });
                 }
+                Toast.makeText(RegisterActivityEncargado.this,"Usuario registrado con exito ",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent (RegisterActivityEncargado.this, MenuActivityEncargado.class);
                 startActivity(intent);
             }
