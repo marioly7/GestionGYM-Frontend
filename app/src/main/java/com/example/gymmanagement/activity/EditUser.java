@@ -67,7 +67,11 @@ public class EditUser extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton radioButton = (RadioButton) findViewById(i);
                 if(radioButton.getText()!="Ninguno"){
-                    planId = radioButton.getId();
+                    for(int j= 0; j<plans.size();j++){
+                        if(radioButton.getText().equals(plans.get(j).getPlan())){
+                            planId = plans.get(j).getPlanId();
+                        }
+                    }
                 }else{
                     planId = null;
                 }

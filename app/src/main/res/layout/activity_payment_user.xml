@@ -6,7 +6,7 @@
                 android:layout_height="match_parent"
                 android:background="#E8FF9800"
                 android:orientation="vertical"
-                tools:context=".activity.PaymentReportActivity">
+                tools:context=".activity.PaymentUser">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -311,6 +311,29 @@
                         </LinearLayout>
                     </LinearLayout>
 
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circularbordersolid"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:padding="16dp">
+
+                    <TextView android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_gravity="center"
+                              android:gravity="center"
+                              android:id="@+id/tvEstadoEscrito"
+                              android:textStyle="bold"
+                              android:textSize="20dp"
+                              android:textColor="#3F51B5"
+                              android:text="El pago de tu plan está al dia"
+                              >
+                    </TextView>
 
                 </LinearLayout>
 

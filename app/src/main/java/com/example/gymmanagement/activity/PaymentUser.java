@@ -27,7 +27,7 @@ import java.util.Date;
 
 public class PaymentUser extends AppCompatActivity {
     Request request = new Request();
-    TextView precio, plan, estado, fechaI, fechaL;
+    TextView precio, plan, estado, fechaI, fechaL, mensaje;
     float precioFloat;
     Button bolivianos, dolares, euros;
     Integer userId;
@@ -39,6 +39,7 @@ public class PaymentUser extends AppCompatActivity {
 
         userId = getIntent().getIntExtra("userId", 0);
 
+        mensaje = findViewById(R.id.tvEstadoEscrito);
         precio = findViewById(R.id.precio);
         plan = findViewById(R.id.tvPlan);
         estado = findViewById(R.id.tvEstado);
@@ -99,9 +100,11 @@ public class PaymentUser extends AppCompatActivity {
                     c.add(Calendar.DATE, 15);
                     fecha = c.getTime();
                     fechaL.setText(formato.format(fecha));
+                    mensaje.setText("Tiene 15 dias desde su fecha de inscripcion para realizar el pago");
                 }else{
                     estado.setText("Estado: Pagado");
                     fechaL.setText("");
+                    mensaje.setText("El pago de tu plan está al dia");
                 }
 
                 plan.setText(paymentReportResponse[0].getPlan());

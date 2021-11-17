@@ -1,5 +1,7 @@
 package com.example.gymmanagement.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 
 public class UserMenuActivity extends AppCompatActivity {
 
-    Button plans, horarios, pagos;
+    Button plans, horarios, pagos, cerrar;
     Integer userId,userTypeId,planId;
     Request request = new Request();
     Integer status;
@@ -36,6 +38,13 @@ public class UserMenuActivity extends AppCompatActivity {
         pagos = findViewById(R.id.miCartera);
         plans = findViewById(R.id.plansButton);
         horarios = findViewById(R.id.misHorariosButton);
+
+        cerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog();
+            }
+        });
 
         pagos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,5 +100,24 @@ public class UserMenuActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Error onFailure", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void alertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserMenuActivity.this);
+        builder.setTitle("Cerrar Sesión");
+        builder.setMessage("Está seguro de cerrar sesión?");
+        builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(UserMenuActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // CANCEL
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

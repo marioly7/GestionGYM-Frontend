@@ -1,9 +1,12 @@
 package com.example.gymmanagement.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +23,7 @@ public class MenuActivity extends AppCompatActivity {
     Button registerButton, paymentButton, usersButton, graficosButton, planesButton, reportePagosButton;
     Integer userId, userTypeId;
     Intent intent;
-    Button userDisabledButton, pagos;
+    Button userDisabledButton, pagos, cerrar;
     List<UserResponse> userList;
 
     @Override
@@ -31,6 +34,7 @@ public class MenuActivity extends AppCompatActivity {
         userId = getIntent().getIntExtra("userId", 0);
         userTypeId = getIntent().getIntExtra("userTypeId", 0);
 
+        cerrar = findViewById(R.id.cerrarSesion);
         pagos = findViewById(R.id.miCartera);
         registerButton = findViewById(R.id.registerButton);
         paymentButton = findViewById(R.id.paymentButton);
@@ -39,6 +43,13 @@ public class MenuActivity extends AppCompatActivity {
         planesButton = findViewById(R.id.plansButton);
         reportePagosButton = findViewById(R.id.reportePagosButton);
 
+
+        cerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog();
+            }
+        });
 
         pagos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,5 +133,24 @@ public class MenuActivity extends AppCompatActivity {
                 Log.d("Payment", "payment ...");
             }
         });
+    }
+
+    private void alertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+        builder.setTitle("Cerrar Sesión");
+        builder.setMessage("Está seguro de cerrar sesión?");
+        builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // CANCEL
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
